@@ -124,6 +124,9 @@ b,strong{font-weight:600}
 .kv b{font-size:13px; font-weight:600; font-variant-numeric:tabular-nums}
 .zyyw{font-size:12.5px; color:var(--sub); line-height:1.7; margin-bottom:10px}
 .zyyw b{color:var(--txt)}
+.bk-tags{display:flex; flex-wrap:wrap; gap:5px; margin-top:5px}
+.bk-tag{font-size:11px; padding:3px 9px; border-radius:7px; background:var(--card2); border:1px solid var(--line); color:var(--sub); white-space:nowrap}
+.bk-tag.ind{background:rgba(76,125,255,.14); border-color:rgba(76,125,255,.4); color:#9db9ff; font-weight:600}
 .info-seg{display:flex; gap:8px; margin:2px 0 12px}
 .info-seg button{flex:1; padding:13px 0; border-radius:12px; background:var(--card2); border:1px solid var(--line); color:var(--sub); font-size:13px; font-weight:600}
 .info-seg button.on{background:var(--acc); border-color:var(--acc); color:#fff}
@@ -173,7 +176,7 @@ b,strong{font-weight:600}
 .app.detail-open .tabbar{display:none}
 .tab{flex:1; height:58px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; color:var(--dim); font-size:10.5px}
 .tab svg{width:21px; height:21px}
-.tab.on{color:var(--acc)}
+.tab.on{color:var(--up)}
 
 /* ---------- Toast / 弹层 ---------- */
 #toastWrap{position:absolute; top:56px; left:0; right:0; display:flex; flex-direction:column; align-items:center; gap:8px; z-index:200; pointer-events:none}
@@ -237,8 +240,6 @@ b,strong{font-weight:600}
 .sec-link b{font-weight:600}
 /* ================= 股灵荐（底部Tab） ================= */
 .tab{position:relative}
-.tab.flash{animation:tabblink .8s infinite}
-@keyframes tabblink{0%,100%{color:var(--up); text-shadow:0 0 8px rgba(255,77,94,.9)}50%{color:#ffd7da; text-shadow:0 0 16px rgba(255,77,94,1)}}
 .rec-row{display:flex; align-items:center; gap:10px; background:var(--card); border-radius:14px; padding:11px 13px; margin:8px 12px; cursor:pointer}
 .rec-row:active{background:var(--card2)}
 .rec-row .r-info{flex:1; min-width:0}
@@ -267,9 +268,100 @@ b,strong{font-weight:600}
 /* 板块荐股：领涨股按钮 */
 .rec-bd .r-info span{display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .rec-cons{display:flex; gap:6px; flex-wrap:wrap; margin:-2px 12px 8px; padding:8px 10px; background:var(--card2); border-radius:12px}
-.rec-stk{flex:1 1 auto; min-width:96px; display:flex; align-items:center; justify-content:space-between; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:7px 10px; font-size:12px; color:var(--txt)}
-.rec-stk:active{border-color:var(--acc)}
+.rec-stk{flex:1 1 0; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; background:linear-gradient(135deg, rgba(255,196,84,.24), rgba(214,158,46,.16)); border:1px solid rgba(255,196,84,.5); border-radius:10px; padding:7px 4px; font-size:12px; font-weight:600; color:var(--txt); box-shadow:0 0 12px rgba(255,196,84,.18)}
+.rec-stk:active{background:linear-gradient(135deg, rgba(255,206,100,.36), rgba(224,170,58,.26))}
+.rec-stk em{font-style:normal; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.rec-stk .num{font-size:11px}
+.rec-stk:active{border-color:rgba(255,206,100,.8)}
 .rec-stk .num{font-size:11.5px}
+
+/* ================= 玄股 · 六爻起卦 ================= */
+.xg-stage{position:relative; height:300px; margin:18px 16px 6px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:18px; background:radial-gradient(ellipse at center, rgba(255,196,84,.06) 0%, rgba(10,13,19,0) 60%)}
+.xg-bagua{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:280px; height:280px; background:url(assets/bagua.png) center/contain no-repeat; opacity:.55; animation:xg-baguarot 60s linear infinite; pointer-events:none}
+@keyframes xg-baguarot{from{transform:translate(-50%,-50%) rotate(0)} to{transform:translate(-50%,-50%) rotate(360deg)}}
+.xg-turtle{position:relative; width:140px; height:170px; background:url(assets/turtle.png) center/contain no-repeat; cursor:pointer; filter:drop-shadow(0 8px 22px rgba(0,0,0,.55)); z-index:2; transition:transform .08s}
+.xg-turtle.shake{animation:xg-shake .55s ease-in-out}
+@keyframes xg-shake{0%{transform:translateX(0) rotate(0)} 15%{transform:translateX(-10px) rotate(-4deg)} 30%{transform:translateX(10px) rotate(4deg)} 45%{transform:translateX(-8px) rotate(-3deg)} 60%{transform:translateX(8px) rotate(3deg)} 75%{transform:translateX(-4px) rotate(-1deg)} 100%{transform:translateX(0) rotate(0)}}
+.xg-pop{position:absolute; left:50%; top:42%; transform:translate(-50%,-50%) scale(.6); font-family:"STKaiti","KaiTi","楷体",serif; font-size:88px; font-weight:700; color:#f7d774; text-shadow:0 0 22px rgba(255,196,84,.55), 0 0 6px rgba(255,210,140,.9); opacity:0; pointer-events:none; z-index:4; letter-spacing:-2px}
+.xg-pop.show{animation:xg-popanim .9s ease-out}
+@keyframes xg-popanim{0%{opacity:0; transform:translate(-50%,-30%) scale(.4)} 35%{opacity:1; transform:translate(-50%,-55%) scale(1.15)} 70%{opacity:1; transform:translate(-50%,-50%) scale(1)} 100%{opacity:0; transform:translate(-50%,-70%) scale(.95)}}
+.xg-particles{position:absolute; inset:0; pointer-events:none; z-index:3}
+.xg-p{position:absolute; left:50%; top:55%; width:6px; height:6px; border-radius:50%; background:radial-gradient(circle, #fff5d2 0%, #f7d774 50%, rgba(247,215,116,0) 100%); box-shadow:0 0 8px rgba(247,215,116,.8); opacity:0}
+.xg-p.fly{animation:xg-fly 1.2s ease-out forwards}
+@keyframes xg-fly{0%{opacity:0; transform:translate(0,0) scale(.5)} 20%{opacity:1} 100%{opacity:0; transform:translate(var(--dx,0), var(--dy,0)) scale(.3)}}
+/* 点击龟壳：背后光晕扩散一次 */
+.xg-halo{position:absolute; left:50%; top:55%; width:160px; height:160px; margin:-80px 0 0 -80px; border-radius:50%; background:radial-gradient(circle, rgba(255,196,84,.38) 0%, rgba(255,196,84,.14) 45%, rgba(255,196,84,0) 70%); opacity:0; pointer-events:none; z-index:1}
+.xg-halo.burst{animation:xg-halo .85s ease-out}
+@keyframes xg-halo{0%{opacity:.75; transform:scale(.5)} 60%{opacity:.3} 100%{opacity:0; transform:scale(1.9)}}
+/* 空闲状态：小粒子随机分布并逆时针环绕旋转 */
+.xg-orbits{position:absolute; inset:0; pointer-events:none; z-index:1}
+.xg-orb{position:absolute; left:50%; top:55%; width:4px; height:4px; margin:-2px 0 0 -2px; border-radius:50%; background:radial-gradient(circle, #fff5d2 0%, #f7d774 55%, rgba(247,215,116,0) 100%); box-shadow:0 0 7px rgba(247,215,116,.75); opacity:0; animation:xg-orbit var(--t,20s) linear infinite, xg-twinkle var(--tt,3s) ease-in-out infinite; animation-delay:var(--d,0s), var(--d,0s)}
+@keyframes xg-orbit{from{transform:rotate(var(--a,0deg)) translateX(var(--r,95px))} to{transform:rotate(calc(var(--a,0deg) - 360deg)) translateX(var(--r,95px))}}
+@keyframes xg-twinkle{0%,100%{opacity:.15} 50%{opacity:.85}}
+.xg-cnt{display:flex; gap:10px; justify-content:center; margin:14px 0 6px}
+.xg-cnt-dot{width:10px; height:10px; border-radius:50%; background:var(--card2); border:1px solid rgba(255,196,84,.2); transition:.2s}
+.xg-cnt-dot.on{background:radial-gradient(circle, #f7d774 0%, #d69e2e 100%); box-shadow:0 0 8px rgba(255,196,84,.55); transform:scale(1.2)}
+.xg-tip{font-size:13px; color:var(--warn); text-align:center; margin:8px 0 14px; letter-spacing:1px; min-height:18px; font-family:"STKaiti","KaiTi","楷体",serif}
+.xg-act{display:flex; justify-content:center; gap:14px; margin:0 18px}
+.xg-btn{flex:1; max-width:220px; padding:13px 0; font-size:15px; font-weight:600; letter-spacing:4px; color:#1c1308; background:linear-gradient(180deg, #f5cf6e 0%, #d69e2e 100%); border:1px solid #b7872b; border-radius:14px; box-shadow:0 4px 14px rgba(214,158,46,.35), inset 0 1px 0 rgba(255,255,255,.4); font-family:"STKaiti","KaiTi","楷体",serif; cursor:pointer; transition:.15s}
+.xg-btn:active{transform:translateY(1px); box-shadow:0 2px 8px rgba(214,158,46,.3), inset 0 1px 0 rgba(255,255,255,.2)}
+.xg-btn.reset{background:linear-gradient(180deg, #4a5263 0%, #2a2f3a 100%); border-color:#1f232d; color:var(--sub); box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.xg-div{height:1px; background:linear-gradient(90deg, transparent, rgba(247,215,116,.4), transparent); margin:24px 30px 0}
+.xg-disclaimer{font-size:10.5px; color:var(--dim); text-align:center; padding:12px 24px 24px; line-height:1.7}
+.xg-disclaimer::before{content:"⚠ "}
+.xg-result{margin:14px 16px 14px; animation:xg-fade .6s ease-out}
+@keyframes xg-fade{from{opacity:0; transform:translateY(20px)} to{opacity:1; transform:translateY(0)}}
+.xg-card{background:linear-gradient(180deg, rgba(255,196,84,.08), rgba(10,13,19,.4)); border:1px solid rgba(255,196,84,.25); border-radius:18px; padding:16px 18px; margin-bottom:14px; box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.xg-card .xg-l{font-size:11px; color:var(--dim); letter-spacing:2px; margin-bottom:6px}
+.xg-name{font-family:"STKaiti","KaiTi","楷体",serif; font-size:38px; font-weight:700; color:#f7d774; text-shadow:0 0 18px rgba(255,196,84,.4); text-align:center; padding:8px 0 12px; letter-spacing:6px; position:relative}
+.xg-name::before, .xg-name::after{content:"✦"; color:rgba(247,215,116,.5); font-size:18px; margin:0 12px; vertical-align:middle}
+.xg-wen{font-family:"STKaiti","KaiTi","楷体",serif; font-size:14.5px; color:#f7d774; text-align:center; margin-bottom:6px; letter-spacing:1px}
+.xg-wen-m{font-size:12px; color:var(--sub); text-align:center; margin-bottom:10px; line-height:1.7}
+.xg-read{font-size:13px; color:var(--txt); line-height:1.85; text-indent:2em}
+.xg-wuxing{display:inline-block; font-size:11.5px; padding:2px 9px; border-radius:8px; background:rgba(247,215,116,.14); color:#f7d774; margin-top:10px; letter-spacing:1px}
+.xg-match{font-size:13px; color:var(--txt); line-height:1.9; text-indent:2em}
+.xg-match b{color:#f7d774; font-weight:600}
+.xg-stk-card{display:flex; align-items:center; gap:14px; padding:14px 16px; background:linear-gradient(135deg, rgba(255,196,84,.18), rgba(214,158,46,.08)); border:1px solid rgba(255,196,84,.5); border-radius:14px; cursor:pointer; transition:.15s; box-shadow:0 0 14px rgba(255,196,84,.18)}
+.xg-stk-card:active{transform:scale(.98); background:linear-gradient(135deg, rgba(255,206,100,.3), rgba(224,170,58,.14))}
+.xg-stk-info{flex:1; min-width:0}
+.xg-stk-name{font-size:16px; font-weight:700; color:var(--txt)}
+.xg-stk-price{font-size:18px; font-weight:700; font-family:ui-monospace,Consolas,monospace; margin-top:2px}
+.xg-stk-price.up{color:var(--up)}
+.xg-stk-price.dn{color:var(--dn)}
+.xg-stk-price.flat{color:var(--flat)}
+.xg-stk-chg{font-size:11px; margin-left:6px; font-weight:500}
+.xg-stk-chg.up{color:var(--up)}
+.xg-stk-chg.dn{color:var(--dn)}
+.xg-stk-ind{font-size:11px; color:var(--dim); margin-top:3px}
+/* 天选之股单行排版：名称居左 · 价格涨幅严格居中 · 行业板块居右（1fr auto 1fr 三列等分） */
+.xg-stk-row{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; column-gap:9px}
+.xg-stk-row .xg-stk-name{min-width:0; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.xg-stk-mid{display:flex; justify-content:center; align-items:baseline; gap:6px; white-space:nowrap}
+.xg-stk-row .xg-stk-price{font-size:16px; margin-top:0}
+.xg-stk-row .xg-stk-chg{margin-left:0}
+.xg-stk-row .xg-stk-ind{margin-top:0; box-sizing:border-box; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:right}
+/* 玄股状态行 */
+/* 玄股页整体背景：灰尘小粒子 + 隐约滚动虚光 */
+#page-xuangu .dhead{position:relative; z-index:2}
+#page-xuangu .scroll{position:relative; z-index:1}
+.xg-dust{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0}
+.xg-glow{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0}
+.xg-glow i{position:absolute; width:64%; height:36%; border-radius:50%; background:radial-gradient(ellipse at center, rgba(255,196,84,.09) 0%, rgba(255,196,84,0) 70%); filter:blur(8px); animation:xg-glowmove 18s ease-in-out infinite alternate}
+.xg-glow i:nth-child(1){top:-6%; left:-14%}
+.xg-glow i:nth-child(2){bottom:-8%; right:-16%; background:radial-gradient(ellipse at center, rgba(124,158,255,.07) 0%, rgba(124,158,255,0) 70%); animation-duration:24s; animation-delay:-9s}
+@keyframes xg-glowmove{from{transform:translate(0,0) scale(1)} to{transform:translate(24%,9%) scale(1.18)}}
+.xg-pool-tip{font-size:10.5px; color:var(--dim); text-align:center; margin:10px 16px 0; letter-spacing:.5px; min-height:14px}
+.xg-gm{font-size:11px; color:var(--dim); margin-top:6px; line-height:1.65; letter-spacing:.4px}
+.xg-stk-arrow{font-size:24px; color:#f7d774; flex-shrink:0}
+.xg-help{position:absolute; top:0; right:0; left:0; bottom:0; background:rgba(5,8,14,.88); backdrop-filter:blur(8px); z-index:300; padding:60px 24px 24px; overflow-y:auto; animation:xg-fade .25s}
+.xg-help-c{position:relative; background:var(--card); border-radius:18px; padding:22px 22px 18px; border:1px solid rgba(247,215,116,.3); box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.xg-help-c h2{font-family:"STKaiti","KaiTi","楷体",serif; color:#f7d774; font-size:20px; margin-bottom:14px; text-align:center; letter-spacing:4px}
+.xg-help-c p{font-size:13px; color:var(--txt); line-height:1.85; margin-bottom:10px}
+.xg-help-c ol{list-style:none; counter-reset:li; padding-left:0; margin-bottom:12px}
+.xg-help-c .ol{font-size:12.5px; color:var(--sub); line-height:1.85; margin-bottom:8px; padding-left:22px; position:relative}
+.xg-help-c .ol::before{content:counter(li); counter-increment:li; position:absolute; left:0; color:#f7d774; font-weight:600}
+.xg-help-c .close{position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; background:var(--card2); border:1px solid var(--line); color:var(--sub); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center}
+.dhead-help{font-size:14px; font-weight:700; color:#f7d774; width:27px; height:27px; line-height:1; border-radius:50%; background:rgba(247,215,116,.12); border:1px solid rgba(247,215,116,.4); display:flex; align-items:center; justify-content:center; cursor:pointer; font-family:Georgia,serif}
 /* 主力大单监控 */
 .fm-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:8px 0}
 .fm-grid>div{background:var(--card2); border-radius:10px; padding:7px 10px}
@@ -318,20 +410,20 @@ b,strong{font-weight:600}
     <section class="page" id="page-alarms">
       <header class="phead">
         <div>
-          <div class="phead-title">价格预警</div>
+          <div class="phead-title">价格示警</div>
           <div class="phead-sub" id="alarmSub">触发即弹窗 + 声音 + 震动</div>
         </div>
         <div class="phead-act"><button class="add" id="btnAddAlarm">＋</button></div>
       </header>
       <div class="scroll">
         <div class="card perm" id="notifPerm" style="display:none">
-          <h3>系统通知 · 后台预警</h3>
-          <p>开启后，即使关闭本页面（浏览器仍在运行，或将本应用安装到手机/电脑桌面），价格与涨跌幅预警仍会以<b>系统级弹窗 + 铃声 + 震动</b>提醒。建议把本站「添加到主屏幕」以获得最佳后台效果。</p>
+          <h3>系统通知 · 后台示警</h3>
+          <p>开启后，即使关闭本页面（浏览器仍在运行，或将本应用安装到手机/电脑桌面），价格与涨跌幅示警仍会以<b>系统级弹窗 + 铃声 + 震动</b>提醒。建议把本站「添加到主屏幕」以获得最佳后台效果。</p>
           <button id="btnNotif">开启系统通知</button>
         </div>
         <div id="alarmList"></div>
         <div class="card">
-          <h3>触发记录（近3天） <small id="logCount"></small></h3>
+          <h3>触发记录（近2天） <small id="logCount"></small></h3>
           <div id="logList"></div>
         </div>
       </div>
@@ -361,7 +453,7 @@ b,strong{font-weight:600}
       <header class="dhead">
         <button class="back" id="btnBack">‹</button>
         <div class="dhead-t"><b id="dName">--</b><span id="dCode">--</span></div>
-        <button class="dhead-alarm" id="btnDetailAlarm" title="设置预警"><span class="al-label">快捷预警</span>⏰</button>
+        <button class="dhead-alarm" id="btnDetailAlarm" title="设置示警"><span class="al-label">快捷示警</span>⏰</button>
       </header>
       <div class="scroll" id="detailScroll">
         <div class="hero">
@@ -388,7 +480,7 @@ b,strong{font-weight:600}
         <div class="card">
           <h3>资金流向 · 主力进出</h3>
           <div id="fundBody">加载中…</div>
-          <div class="sub-h" style="margin-top:12px">主力大单监控 <small style="color:var(--dim);font-weight:400">按市值分级 · 15秒刷新 · 达标即推送预警</small></div>
+          <div class="sub-h" style="margin-top:12px">主力大单监控 <small style="color:var(--dim);font-weight:400">按市值分级 · 15秒刷新 · 达标即推送示警</small></div>
           <div id="fundMon">加载中…</div>
         </div>
         <div class="info-seg" id="infoSeg">
@@ -403,6 +495,7 @@ b,strong{font-weight:600}
             <div class="sub-h">板块强联动</div>
             <div id="secLink">加载中…</div>
             <div class="zyyw" id="zyyw"></div>
+            <div class="zyyw" id="sjbk"><b>涉及板块：</b>加载中…</div>
             <div class="kv" id="profileGrid"></div>
             <div class="sub-h">主要财务指标 <small id="zyzbDate"></small></div>
             <div class="kv" id="zyzbGrid"></div>
@@ -411,12 +504,45 @@ b,strong{font-weight:600}
           <div id="pane-news" style="display:none"><div id="newsBody">加载中…</div></div>
         </div>
         <div class="card">
-          <h3>五日K · 预警规则 <small style="color:var(--dim);font-weight:400">见上方K线图「五日K」页签</small></h3>
+          <h3>五日K · 示警规则 <small style="color:var(--dim);font-weight:400">见上方K线图「五日K」页签</small></h3>
           <div class="chart-hint">切换到「五日K」可查看7条均线/量能/盘中规则实时计算值，每条规则可单独设置报警开关</div>
         </div>
-        <div class="src-note">行情 · K线 · 资料 · 公告：腾讯财经公开接口 · 资金流：新浪财经公开接口<br>数据仅供个人参考，不构成投资建议</div>
+        <div class="src-note">行情 · K线 · 资料 · 公告：腾讯财经公开接口 · 资金流（含历史累积）：东方财富（与同花顺/开盘了等主流口径一致）<br>数据仅供个人参考，不构成投资建议</div>
       </div>
       <button class="fab-top" id="fabTop" title="回到顶部">↑</button>
+    </section>
+
+    <!-- 玄股 · 六爻起卦 -->
+    <section class="page" id="page-xuangu">
+      <canvas class="xg-dust" id="xgDust"></canvas>
+      <div class="xg-glow" id="xgGlow"><i></i><i></i></div>
+      <header class="dhead">
+        <button class="back" id="btnXgBack">‹</button>
+        <div class="dhead-t"><b id="xgTitle" style="font-size:22px; font-weight:700">玄股</b><span>六爻起卦</span></div>
+        <button class="dhead-help" id="btnXgHelp" title="规则说明">?</button>
+      </header>
+      <div class="scroll" id="xgScroll">
+        <div class="xg-pool-tip" id="xgPoolTip">沪深A股名单加载中…</div>
+        <div class="xg-stage">
+          <div class="xg-bagua" id="xgBagua"></div>
+          <div class="xg-halo" id="xgHalo"></div>
+          <div class="xg-orbits" id="xgOrbits"></div>
+          <div class="xg-turtle" id="xgTurtle"></div>
+          <div class="xg-particles" id="xgParticles"></div>
+          <div class="xg-pop" id="xgPop"></div>
+        </div>
+        <div class="xg-cnt">
+          <span class="xg-cnt-dot on" data-i="0"></span>
+          <span class="xg-cnt-dot" data-i="1"></span>
+          <span class="xg-cnt-dot" data-i="2"></span>
+          <span class="xg-cnt-dot" data-i="3"></span>
+          <span class="xg-cnt-dot" data-i="4"></span>
+          <span class="xg-cnt-dot" data-i="5"></span>
+        </div>
+        <div class="xg-tip" id="xgTip">轻点龟壳 · 第一爻 · 壹</div>
+        <div id="xgResult"></div>
+        <div class="xg-disclaimer">仅供娱乐，不构成投资建议 · 沪深A股全覆盖 · 签池每日更新</div>
+      </div>
     </section>
   </main>
 
@@ -429,9 +555,13 @@ b,strong{font-weight:600}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4.4 0 7-2.8 7-6.5 0-3-1.8-4.8-3.2-6.2C14.4 7.9 13 6.5 13 4c-3 1.5-4.2 3.6-4 6-1-.4-1.7-1.2-2-2.4C5.2 9 5 10.9 5 12.5 5 18 7.6 22 12 22z"/><path d="M12 22c2 0 3-1.4 3-3 0-1.5-1-2.4-2-3.4-.8-.8-1.5-1.6-1.7-2.6-1.6.9-2.3 2.4-2.3 3.9C9 20.5 10 22 12 22z"/></svg>
       股灵荐
     </button>
+    <button class="tab" data-tab="xuangu" id="tabXuangu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9 4.5 4.5 0 1 1-9-9z"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="16.5" r="1" fill="currentColor" stroke="none"/></svg>
+      玄股
+    </button>
     <button class="tab" data-tab="alarms">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M5 3 2 6M19 3l3 3"/></svg>
-      预警
+      示警
     </button>
   </nav>
 
@@ -460,15 +590,12 @@ var DEFAULT_STOCKS=[
   {market:1,code:'600613',name:'神奇制药'},
   {market:1,code:'600519',name:'贵州茅台'},
   {market:0,code:'300750',name:'宁德时代'},
-  {market:0,code:'002594',name:'比亚迪'},
-  {market:1,code:'601318',name:'中国平安'},
   {market:0,code:'000858',name:'五粮液'},
-  {market:1,code:'600900',name:'长江电力'},
-  {market:1,code:'688989',name:'中芯国际'},
-  {market:0,code:'300059',name:'东方财富'},
-  {market:1,code:'601899',name:'紫金矿业'}
+  {market:0,code:'002594',name:'比亚迪'}
 ];
 var stocks=loadLS(LS_STOCKS)||DEFAULT_STOCKS.slice();
+/* 一次性重置为五只默认自选（升级默认列表） */
+if(!loadLS('sw_def5_v1')){stocks=DEFAULT_STOCKS.slice();saveLS(LS_STOCKS,stocks);saveLS('sw_def5_v1',1)}
 var alarms=loadLS(LS_ALARMS)||[];
 var logs=loadLS(LS_LOG)||[];
 var quotes={};          // 'm.code' -> 最新行情
@@ -477,6 +604,7 @@ var detailKlt=101;
 var detailFrom='list';  // 详情返回目标：list / rec
 var editMode=false;
 var lastUpdate='';
+var xg={lines:[],busy:false,result:null};  // 玄股页状态：六爻记录 / 摇卦中 / 本轮结果
 function mktLabel(s){if(s.market===1)return'SH';var c=String(s.code);return(c[0]==='4'||c[0]==='8')?'BJ':'SZ'}
 function symOf(s){var c=String(s.code);if(s.market===1)return'sh'+c;if(c[0]==='4'||c[0]==='8')return'bj'+c;return'sz'+c}
 /* 腾讯 qt.gtimg.cn 行情字段解析（GBK 文本按 ~ 分隔） */
@@ -499,10 +627,10 @@ function fetchQtText(url){
 function saveStocks(){saveLS(LS_STOCKS,stocks)}
 function saveAlarms(){saveLS(LS_ALARMS,alarms);syncBackground()}
 function saveLogs(){saveLS(LS_LOG,logs)}
-/* 统一触发记录：近3天保留，自动保存；type = 价格预警 / 五日K信号 / 主力资金预警 / 股灵荐 */
+/* 统一触发记录：近2天保留，自动保存；type = 价格预警 / 五日K信号 / 主力资金预警 / 股灵荐 */
 function addLog(type,txt){
   logs.unshift({t:Date.now(),type:type,txt:txt});
-  var cut=Date.now()-3*864e5;
+  var cut=Date.now()-2*864e5;
   logs=logs.filter(function(l){return l.t>cut});
   if(logs.length>300)logs=logs.slice(0,300);
   saveLogs();
@@ -648,9 +776,9 @@ function fireAlarm(a,p,pct){
   if(a.type==='pctHigh')txt=a.name+' 现涨幅 '+(pct>0?'+':'')+fmt(pct)+'% 已达到 +'+a.pct+'%';
   else if(a.type==='pctLow')txt=a.name+' 现跌幅 '+fmt(pct)+'% 已达到 -'+a.pct+'%';
   else txt=a.name+' 现价 '+p.toFixed(2)+(a.type==='high'?' 已突破上限 ':' 已跌破下限 ')+a.price.toFixed(2);
-  addLog('价格预警',txt);
-  toast('⏰ 预警触发：'+txt);
-  notify('⏰ 预警触发 · '+a.name,txt+'（'+ts(Date.now())+'）');
+  addLog('价格示警',txt);
+  toast('⏰ 示警触发：'+txt);
+  notify('⏰ 示警触发 · '+a.name,txt+'（'+ts(Date.now())+'）');
   beep(3);
   if(navigator.vibrate)navigator.vibrate([200,100,200,100,300]);
 }
@@ -673,7 +801,7 @@ function renderList(){
         +esc(sg.sig.map(function(g){return g.txt}).join('；'))+'</span></div>';
     }
     if(sg.fund){
-      sigHtml+='<div class="sig-fund"><span class="sig-badge">⚠️</span>主力资金预警'
+      sigHtml+='<div class="sig-fund"><span class="sig-badge">⚠️</span>主力资金示警'
         +(sg.fundMsg?' <small>'+esc(sg.fundMsg)+'</small>':'')+'</div>';
     }
     if(sigHtml)sigHtml='<div class="sig-box">'+sigHtml+'</div>';
@@ -684,7 +812,7 @@ function renderList(){
       +'<span class="chg num '+cls(pct)+'">'+fmtPct(pct)+'</span></div>'
       +sigHtml+'</div>';
   }).join('')
-  +(editMode?'<div class="list-tip">点 − 删除股票（同时删除其预警），退出编辑点"完成"</div>':'');
+  +(editMode?'<div class="list-tip">点 − 删除股票（同时删除其示警），退出编辑点"完成"</div>':'');
 }
 $('#stockList').addEventListener('click',function(e){
   var del=e.target.closest('[data-del]');
@@ -692,7 +820,7 @@ $('#stockList').addEventListener('click',function(e){
     var key=del.getAttribute('data-del');
     var s=stocks.filter(function(x){return x.market+'.'+x.code===key})[0];
     var n=(s&&s.name)||key;
-    confirmModal('删除 '+esc(n)+' ？','将同时删除该股票的价格预警',function(){
+    confirmModal('删除 '+esc(n)+' ？','将同时删除该股票的价格示警',function(){
       stocks=stocks.filter(function(x){return x.market+'.'+x.code!==key});
       alarms=alarms.filter(function(a){return a.market+'.'+a.code!==key});
       saveStocks();saveAlarms();renderList();pollQuotes();
@@ -794,11 +922,11 @@ function confirmModal(title,sub,cb){
 /* ================= 预警页 ================= */
 function renderAlarms(){
   var on=alarms.filter(function(a){return a.on}).length;
-  $('#alarmSub').textContent=alarms.length? (on+' 个监控中 / 共 '+alarms.length+' 个'):'还没有预警，点 ＋ 添加';
+  $('#alarmSub').textContent=alarms.length? (on+' 个监控中 / 共 '+alarms.length+' 个'):'还没有示警，点 ＋ 添加';
   var perm=$('#notifPerm');
   if('Notification'in window&&Notification.permission==='default')perm.style.display='';else perm.style.display='none';
   var w=$('#alarmList');
-  if(!alarms.length){w.innerHTML='<div class="empty" style="padding:22px 0">暂无预警 · 在个股详情页或这里添加</div>'}
+  if(!alarms.length){w.innerHTML='<div class="empty" style="padding:22px 0">暂无示警 · 在个股详情页或这里添加</div>'}
   else{
     w.innerHTML=alarms.map(function(a){
       var q=quotes[a.market+'.'+a.code]||{};
@@ -823,15 +951,15 @@ function renderAlarms(){
         +'<button class="x" data-x="'+a.id+'">×</button></div></div>';
     }).join('');
   }
-  var _cut=Date.now()-3*864e5;
+  var _cut=Date.now()-2*864e5;
   var _recent=logs.filter(function(l){return l.t>_cut});
-  $('#logCount').textContent=_recent.length?('近3天 '+_recent.length+' 条'):'';
+  $('#logCount').textContent=_recent.length?('近2天 '+_recent.length+' 条'):'';
   $('#logList').innerHTML=_recent.length?_recent.map(function(l){
     var d=new Date(l.t);
-    var tp=l.type||'预警';
-    var tc=tp==='五日K信号'?'lt-k':(tp==='主力资金预警'?'lt-f':(tp==='股灵荐'?'lt-r':''));
+    var tp=String(l.type||'示警').replace(/预警/g,'示警');
+    var tc=tp==='五日K信号'?'lt-k':(tp==='主力资金示警'?'lt-f':(tp==='股灵荐'?'lt-r':''));
     return '<div class="log-row"><span>'+d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日 '+ts(l.t)+'</span><em class="log-type '+tc+'">'+esc(tp)+'</em>'+esc(l.txt)+'</div>';
-  }).join(''):'<div class="empty">近3天暂无触发记录</div>';
+  }).join(''):'<div class="empty">近2天暂无触发记录</div>';
 }
 $('#alarmList').addEventListener('click',function(e){
   var tg=e.target.closest('[data-tg]');
@@ -840,7 +968,7 @@ $('#alarmList').addEventListener('click',function(e){
   if(x){var a2=alarms.filter(function(x2){return x2.id==x.getAttribute('data-x')})[0];
     alarms=alarms.filter(function(x3){return x3.id!=a2.id});saveAlarms();renderAlarms();return}
   var re=e.target.closest('[data-re]');
-  if(re){var a3=alarms.filter(function(x3){return x3.id==re.getAttribute('data-re')})[0];if(a3){a3.triggered=false;saveAlarms();renderAlarms();toast('已重新启用 '+a3.name+' 的预警',true)}}
+  if(re){var a3=alarms.filter(function(x3){return x3.id==re.getAttribute('data-re')})[0];if(a3){a3.triggered=false;saveAlarms();renderAlarms();toast('已重新启用 '+a3.name+' 的示警',true)}}
 });
 $('#btnAddAlarm').addEventListener('click',function(){openAlarmModal(null)});
 $('#btnNotif').addEventListener('click',function(){
@@ -862,7 +990,7 @@ function openAlarmModal(pre){
     return '<option value="'+s.market+'.'+s.code+'"'+(s.market+'.'+s.code===selKey?' selected':'')+'>'+esc(s.name)+' '+mktLabel(s)+s.code+'</option>';
   }).join('');
   openModal('<div class="sheet">'
-    +'<h3>设置预警 <span class="sheet-sub">触发即弹窗+闹铃+震动</span></h3>'
+    +'<h3>设置示警 <span class="sheet-sub">触发即弹窗+闹铃+震动</span></h3>'
     +'<div class="f-row"><label>股票</label><select id="alStock">'+opts+'</select></div>'
     +'<div class="seg big" id="alMode"><button data-m="price" class="on">目标价</button><button data-m="pct">涨跌幅 %</button></div>'
     +'<div id="alPriceBox">'
@@ -874,7 +1002,7 @@ function openAlarmModal(pre){
       +'<div class="f-row"><label>百分比</label><input id="alPct" type="number" step="0.1" min="0.1" inputmode="decimal" placeholder="如 5 表示 5%"><span class="pct-u">%</span></div>'
     +'</div>'
     +'<div class="f-tip" id="alTip"></div>'
-    +'<div class="f-btns"><button class="ghost" id="alCancel">取消</button><button class="primary" id="alSave">保存预警</button></div></div>');
+    +'<div class="f-btns"><button class="ghost" id="alCancel">取消</button><button class="primary" id="alSave">保存示警</button></div></div>');
   var curMode='price',curType='high',curPctType='pctHigh';
   function setMode(m){
     curMode=m;
@@ -952,11 +1080,11 @@ function openAlarmModal(pre){
 }
 
 /* ================= 详情页数据 ================= */
-function openDetail(m,c,fromRec){
+function openDetail(m,c,fromRec,fromXg){
   var s=stocks.filter(function(x){return x.market==m&&x.code==c})[0]||{market:+m,code:c,name:''};
   current={market:s.market,code:s.code,name:s.name,rq:null,kl:null,dailyKl:null,minute:null,minuteAt:0,fund:null};
   detailKlt=101;
-  detailFrom=fromRec?'rec':'list';
+  detailFrom=fromXg?'xuangu':(fromRec?'rec':'list');
   $('#phone').classList.add('detail-open');
   showPage('detail');
   $('#dName').textContent=s.name||'加载中…';
@@ -968,6 +1096,7 @@ function openDetail(m,c,fromRec){
   $('#fundMon').innerHTML='<div class="empty">加载中…</div>';
   $('#profileGrid').innerHTML='';
   $('#zyyw').innerHTML='';
+  $('#sjbk').innerHTML='<b>涉及板块：</b>加载中…';
   $('#ydBody').textContent='加载中…';
   $('#secLink').textContent='加载中…';
   $('#zyzbGrid').innerHTML='<div style="grid-column:1/-1"><div class="empty">加载中…</div></div>';
@@ -996,6 +1125,7 @@ function loadDetail(){
     })
     .catch(function(){});
   loadJiankuang(m,c);
+  loadStockBoards(m,c);
   loadKline(detailKlt);
   loadFund(m,c);
   loadNotices(m,c);
@@ -1006,8 +1136,32 @@ function loadDetail(){
 function loadJiankuang(m,c){
   fetch('https://proxy.finance.qq.com/ifzqgtimg/appstock/app/stockinfo/jiankuang?code='+symOf({market:m,code:c}),{cache:'no-store'})
     .then(function(r){return r.json()})
-    .then(function(j){if(!current)return;current.jk=(j&&j.data)||null;renderProfile();renderSecLink()})
+    .then(function(j){if(!current)return;current.jk=(j&&j.data)||null;renderProfile();renderSecLink();loadStockBoards(current.market,current.code)})
     .catch(function(){});
+}
+/* 涉及板块：东财 slist（该股所属全部行业+概念板块），10分钟缓存 */
+var bkCache={};
+function loadStockBoards(m,c){
+  var key=m+'.'+c;
+  function render(list){
+    if(!current||current.market!==m||String(current.code)!==String(c))return;
+    var plates=(((current.jk||{}).gsjj||{}).plate||[]).map(function(p){return p&&p.name}).filter(Boolean);
+    if(!list||!list.length){$('#sjbk').innerHTML='<b>涉及板块：</b>--';return}
+    $('#sjbk').innerHTML='<b>涉及板块：</b><div class="bk-tags">'+list.map(function(b){
+      var isInd=plates.some(function(p){return p&&p.indexOf(b.n)>=0});
+      return '<span class="bk-tag'+(isInd?' ind':'')+'">'+esc(b.n)+'</span>';
+    }).join('')+'</div>';
+  }
+  if(bkCache[key]&&Date.now()-bkCache[key].at<6e5){render(bkCache[key].list);return}
+  getJSON('https://push2delay.eastmoney.com/api/qt/slist/get?spt=3&secid='+key+'&fields=f12,f14,f3&pn=1&pz=100&np=1')
+    .then(function(j){
+      var diff=j&&j.data&&j.data.diff;
+      var arr=Array.isArray(diff)?diff:(diff?Object.values(diff):[]);
+      var list=arr.map(function(b){return b&&b.f14?{n:b.f14,pct:b.f3}:null}).filter(Boolean);
+      if(list.length)bkCache[key]={at:Date.now(),list:list};
+      render(list);
+    })
+    .catch(function(){render(null)});
 }
 /* 带超时的 fetch（防止弱网下请求悬挂导致K线/分时一直"加载中"） */
 function fetchTO(url,ms){
@@ -1215,81 +1369,94 @@ function renderProfile(){
     $('#zyzbGrid').innerHTML='<div style="grid-column:1/-1"><div class="empty">财务指标暂未获取</div></div>';
   }
 }
-/* 新浪 JSONP（json_v2 无跨域头，jsonp_v2 用全局变量回传） */
-function sinaJSONP(pathAndQuery){
-  return new Promise(function(res,rej){
-    var n='sv'+Math.random().toString(36).slice(2);
-    var s=document.createElement('script');
-    var done=false;
-    var t=setTimeout(function(){cleanup();rej(new Error('timeout'))},9000);
-    function cleanup(){
-      if(done)return;done=true;clearTimeout(t);
-      try{delete window[n]}catch(e){window[n]=undefined}
-      if(s.parentNode)s.parentNode.removeChild(s);
-    }
-    s.onload=function(){
-      var d=window[n];cleanup();
-      (d&&d.length!=null)?res(d):rej(new Error('empty'));
-    };
-    s.onerror=function(){cleanup();rej(new Error('net'))};
-    s.src='https://vip.stock.finance.sina.com.cn/quotes_service/api/jsonp_v2.php/var%20'+n+'=/'+pathAndQuery;
-    document.head.appendChild(s);
-  });
+/* ================= 资金流（东方财富口径 · 与同花顺/开盘了等主流软件一致） ================= */
+/* 历史逐日主力净额：本地累积（详情页/自选扫描自动记录当日数据，替代旧的新浪源） */
+var LS_FUNDHIST='sw_fundhist_v1';
+var fundHist=loadLS(LS_FUNDHIST)||{};
+function pushFundHist(secid,date,rec){
+  if(!secid||!date||!rec||rec.zl==null)return;
+  var h=fundHist[secid]||{};
+  var old=h[date];
+  /* 同日更新保留更全的记录（详情页带超大单/大单，列表仅净额） */
+  h[date]={zl:rec.zl,cdd:rec.cdd!=null?rec.cdd:(old&&old.cdd!=null?old.cdd:null),dd:rec.dd!=null?rec.dd:(old&&old.dd!=null?old.dd:null)};
+  var keys=Object.keys(h).sort().reverse().slice(0,40);
+  var nh={};keys.forEach(function(k){nh[k]=h[k]});
+  fundHist[secid]=nh;
+  saveLS(LS_FUNDHIST,fundHist);
+}
+function getFundHist(secid,todayDate){
+  return Object.keys(fundHist[secid]||{}).sort().reverse()
+    .filter(function(d){return !todayDate||d<todayDate}).slice(0,5)
+    .map(function(d){var r=fundHist[secid][d];return{date:d,zl:r.zl,cdd:r.cdd,dd:r.dd}});
 }
 function loadFund(m,c,silent){
   var el=$('#fundBody');
   if(!silent)el.textContent='加载中…';
-  sinaJSONP('MoneyFlow.ssl_qsfx_lscjfb?page=1&num=7&sort=opendate&asc=0&daima='+symOf({market:m,code:c}))
-    .then(function(rows){
-      rows=(rows||[]).filter(function(r){return r&&r.opendate});
-      if(!rows.length)throw new Error('empty');
-      function map(r){
-        var zl=(+r.r0_net)+(+r.r1_net);
-        return{date:r.opendate,zl:zl,cdd:+r.r0_net,dd:+r.r1_net,pct:(+r.ratioamount*100).toFixed(2)};
-      }
-      var today=map(rows[0]);
-      var hist=rows.slice(1,6).map(map);
-      if(current&&current.market===m&&String(current.code)===String(c))current.fund={today:today,hist:hist};
-      var rowsHtml=hist.map(function(r){
-        return '<tr><td>'+r.date.slice(5)+'</td><td class="'+cls(r.zl)+'">'+fmtSY(r.zl)+'</td>'
-          +'<td class="'+cls(r.cdd)+'">'+fmtSY(r.cdd)+'</td><td class="'+cls(r.dd)+'">'+fmtSY(r.dd)+'</td></tr>';
-      }).join('');
-      el.innerHTML='<div class="fund-today">今日主力净流入 <b class="'+cls(today.zl)+'">'+fmtSY(today.zl)+'</b>'
-        +'<span class="fund-pct num">净流入率 '+today.pct+'%</span></div>'
-        +'<table class="ftab"><tr><th>日期</th><th>主力净额</th><th>超大单</th><th>大单</th></tr>'+rowsHtml+'</table>'
-        +'<div class="chart-hint">主力 = 超大单 + 大单净额 · 数据来源：新浪财经 · 15秒自动刷新</div>';
+  var secid=m+'.'+c;
+  /* 2026-08-27：push2delay 的 fflow/daykline 已失效（rc:100）、push2his 对站外浏览器请求做TCP重置。
+     主通道改为 ulist.np 实时资金流（f62主力/f66超大单/f72大单/f184主力净占比，push2delay 稳定可用），
+     历史靠本地逐日累积（sw_fundhist_v1）；daykline 仍先尝试（若东财修复或偶然可达可补全完整历史） */
+  var hosts=['https://push2his.eastmoney.com','https://push2delay.eastmoney.com'];
+  function tryHost(i){
+    if(i>=hosts.length)return Promise.reject(new Error('fund fail'));
+    return fetch(hosts[i]+'/api/qt/stock/fflow/daykline/get?lmt=8&klt=101&fields1=f1,f2,f3,f7&fields2=f51,f52,f53,f54,f55,f56,f57&secid='+secid)
+      .then(function(r){return r.json()})
+      .then(function(j){
+        var kl=(j&&j.data&&j.data.klines)||[];
+        if(!kl.length)throw new Error('empty');
+        var t=kl[kl.length-1].split(',');
+        return{date:t[0],zl:+t[1],cdd:+t[5],dd:+t[4],pct:+t[6]};
+      })
+      .catch(function(){return tryHost(i+1)});
+  }
+  function viaUlist(){
+    return getJSON('https://push2delay.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&secids='+encodeURIComponent(secid)+'&fields=f12,f13,f14,f62,f66,f72,f184,f124')
+      .then(function(j){
+        var diff=j&&j.data&&j.data.diff;
+        var it=Array.isArray(diff)?diff[0]:(diff&&diff.f12!=null?diff:(diff?Object.values(diff)[0]:null));
+        if(!it)throw new Error('empty');
+        function num(v){return(v==null||v==='-'||isNaN(v))?null:Number(v)}
+        var zl=num(it.f62);
+        if(zl==null)throw new Error('empty');
+        var dstr='',ts=num(it.f124);
+        if(ts){var d=new Date(ts*1000);function pd(x){return(x<10?'0':'')+x}dstr=d.getFullYear()+'-'+pd(d.getMonth()+1)+'-'+pd(d.getDate())}
+        if(!dstr){var n=new Date();function pd2(x){return(x<10?'0':'')+x}dstr=n.getFullYear()+'-'+pd2(n.getMonth()+1)+'-'+pd2(n.getDate())}
+        return{date:dstr,zl:zl,cdd:num(it.f66),dd:num(it.f72),pct:num(it.f184)};
+      });
+  }
+  tryHost(0)
+    .catch(function(){return viaUlist()})
+    .then(function(today){
+      pushFundHist(secid,today.date,{zl:today.zl,cdd:today.cdd,dd:today.dd});
+      var hist=getFundHist(secid,today.date);
+      if(!current||current.market!==m||String(current.code)!==String(c))return;
+      current.fund={today:today,hist:hist};
+      renderFundBody(el,today,hist);
       renderFundMonitor();
     })
-    .catch(function(){loadFundEM(m+'.'+c,silent)});
+    .catch(function(){
+      /* 全通道失败（如未开盘）：有本地累积历史则展示历史，今日置空 */
+      if(current&&current.market===m&&String(current.code)===String(c)){
+        var hist=getFundHist(secid);
+        current.fund={today:null,hist:hist};
+        if(hist.length)renderFundBody(el,null,hist);
+        else if(!silent)el.innerHTML='<div class="empty">资金流数据暂不可用，请稍后重试</div>';
+        renderFundMonitor();
+      }else if(!silent){
+        el.innerHTML='<div class="empty">资金流数据暂不可用，请稍后重试</div>';
+      }
+    });
 }
-/* 备用资金流源：东方财富 */
-function loadFundEM(secid,silent){
-  var el=$('#fundBody');
-  if(!silent&&el.textContent.indexOf('今日主力')<0)el.textContent='加载中…';
-  var urls=[
-    'https://push2delay.eastmoney.com/api/qt/stock/fflow/daykline/get?lmt=8&klt=101&fields1=f1,f2,f3,f7&fields2=f51,f52,f53,f54,f55,f56,f57,f58&secid='+secid,
-    'https://push2delay.eastmoney.com/api/qt/stock/fflow/daykline/get?lmt=8&klt=101&fields1=f1,f2,f3,f7&fields2=f51,f52,f53,f54,f55,f56,f57&secid='+secid
-  ];
-  function tryNext(i){
-    if(i>=urls.length){if(!silent)el.innerHTML='<div class="empty">资金流数据暂不可用，请稍后重试</div>';return}
-    getJSON(urls[i]).then(function(j){
-      var kl=(j&&j.data&&j.data.klines)||[];
-      if(!kl.length)throw new Error('empty');
-      var days=kl.map(function(s){return s.split(',')});
-      var today=days[days.length-1];
-      var hist=days.slice(0,-1).slice(-5).reverse();
-      if(current&&secid===current.market+'.'+current.code)current.fund={today:{date:today[0],zl:+today[1]},hist:hist.map(function(r){return{date:r[0],zl:+r[1],cdd:+r[5],dd:+r[4]}})};
-      var rows=hist.map(function(r){
-        return '<tr><td>'+r[0].slice(5)+'</td><td class="'+cls(+r[1])+'">'+fmtSY(+r[1])+'</td>'
-          +'<td class="'+cls(+r[5])+'">'+fmtSY(+r[5])+'</td><td class="'+cls(+r[4])+'">'+fmtSY(+r[4])+'</td></tr>';
-      }).join('');
-      el.innerHTML='<div class="fund-today">今日主力净流入 <b class="'+cls(+today[1])+'">'+fmtSY(+today[1])+'</b>'
-        +'<span class="fund-pct num '+cls(+today[6])+'">主力占比 '+today[6]+'%</span></div>'
-        +'<table class="ftab"><tr><th>日期</th><th>主力净额</th><th>超大单</th><th>大单</th></tr>'+rows+'</table>';
-      renderFundMonitor();
-    }).catch(function(){tryNext(i+1)});
-  }
-  tryNext(0);
+function renderFundBody(el,today,hist){
+  function cell(v){return v==null?'--':fmtSY(v)}
+  var rowsHtml=hist.map(function(r){
+    return '<tr><td>'+r.date.slice(5)+'</td><td class="'+cls(r.zl)+'">'+cell(r.zl)+'<\/td>'
+      +'<td class="'+cls(r.cdd)+'">'+cell(r.cdd)+'<\/td><td class="'+cls(r.dd)+'">'+cell(r.dd)+'<\/td><\/tr>';
+  }).join('');
+  el.innerHTML='<div class="fund-today">今日主力净流入 '+(today&&today.zl!=null?'<b class="'+cls(today.zl)+'">'+fmtSY(today.zl)+'<\/b>'
+    +(today.pct!=null?'<span class="fund-pct num '+cls(today.pct)+'">主力占比 '+today.pct+'%<\/span>':''):'<b>--</b>（未开盘）')+'<\/div>'
+    +(rowsHtml?'<table class="ftab"><tr><th>日期<\/th><th>主力净额<\/th><th>超大单<\/th><th>大单<\/th><\/tr>'+rowsHtml+'<\/table>':'')
+    +'<div class="chart-hint">主力 = 超大单 + 大单净额 · 数据：东方财富（与同花顺/开盘了等主流口径一致） · 历史逐日自动累积 · 15秒自动刷新<\/div>';
 }
 /* ================= 主力大单监控（市值分级预警） ================= */
 var fundFired=loadLS('sw_fundfired_v1')||{};
@@ -1303,7 +1470,18 @@ function renderFundMonitor(){
   var el=$('#fundMon');
   if(!el)return;
   var f=current&&current.fund;
-  if(!f||!f.today||f.today.zl==null){el.innerHTML='<div class="empty">主力监控数据加载中…</div>';return}
+  if(!f){el.innerHTML='<div class="empty">主力监控数据加载中…</div>';return}
+  /* 今日无数据（未开盘/接口失效）：展示本地累积的近几日 */
+  if(!f.today||f.today.zl==null){
+    var hz=(f.hist||[]).map(function(h){return h.zl});
+    el.innerHTML='<div class="fm-grid">'
+      +'<div><label>今日主力净流入</label><b>--（未开盘）</b></div>'
+      +'<div><label>净流入 / 成交额占比</label><b>--</b></div>'
+      +'<div><label>流通市值分级</label><b>--</b></div>'
+      +'<div><label>近几日主力净流入（近→远）</label><b class="'+cls(hz[0])+'">'+(hz.length?hz.map(function(v){return fmtSY(v)}).join(' / '):'--')+'</b></div>'
+      +'</div><div class="fm-tags"><span class="fm-tag">分级示警：开盘后生效</span></div>';
+    return;
+  }
   var q=curQ();
   var zl=f.today.zl, amt=q.amt, fc=q.floatCap, upPct=q.pct;
   var tier=capTier(fc);
@@ -1326,7 +1504,7 @@ function renderFundMonitor(){
     +'<div><label>流通市值分级</label><b>'+(tier?tier.t:'--')+'</b></div>'
     +'<div><label>近3日主力净流入（今/昨/前）</label><b class="'+cls(flows[0])+'">'+(flows.length>=3?fmtSY(flows[0])+' / '+fmtSY(flows[1])+' / '+fmtSY(flows[2]):'--')+'</b></div>'
     +'</div><div class="fm-tags">'
-    +(warn?'<span class="fm-tag hot">⚠️ 分级预警：'+tier.ds+'</span>':'<span class="fm-tag">分级预警：未达阈值</span>')
+    +(warn?'<span class="fm-tag hot">⚠️ 分级示警：'+tier.ds+'</span>':'<span class="fm-tag">分级示警：未达阈值</span>')
     +(act=='主力主动买入'?'<span class="fm-tag hot">主力主动买入（占比>10%且上涨）</span>':'')
     +(act=='主力出货'?'<span class="fm-tag out">主力出货（占比>10%且下跌）</span>':'')
     +(cont?'<span class="fm-tag plan">持续布局（连续3日净流入且递增）</span>':'')
@@ -1339,9 +1517,9 @@ function renderFundMonitor(){
       fundFired[k]=now;
       pruneFired();
       var txt=(current.name||current.code)+' '+tier.t+' '+warn+'（'+fmtSY(zl)+'）';
-      addLog('主力资金预警',txt);
-      toast('⚠️ 主力大单预警：'+txt);
-      notify('主力大单预警 · '+(current.name||''),txt+' · 净流入占比 '+(ratio!=null?ratio.toFixed(2)+'%':'--'));
+      addLog('主力资金示警',txt);
+      toast('⚠️ 主力大单示警：'+txt);
+      notify('主力大单示警 · '+(current.name||''),txt+' · 净流入占比 '+(ratio!=null?ratio.toFixed(2)+'%':'--'));
       beep(3);
       if(navigator.vibrate)navigator.vibrate([200,100,200,100,300]);
     }
@@ -1426,8 +1604,9 @@ function refreshDetailData(){
   fetchMinuteData(true).then(function(){if(current){renderYd();refreshRules()}});
 }
 $('#btnBack').addEventListener('click',function(){
+  var back=detailFrom==='rec'?'rec':(detailFrom==='xuangu'?'xuangu':'list');
   $('#phone').classList.remove('detail-open');
-  current=null;showPage(detailFrom==='rec'?'rec':'list');
+  current=null;showPage(back);
 });
 $('#btnDetailAlarm').addEventListener('click',function(){
   if(!current)return;openAlarmModal({market:current.market,code:current.code});
@@ -1498,7 +1677,7 @@ var RULES_META=[
   {t:'规则3 · 跌破10日线留底仓',s:'收盘 < MA10（有效跌破）',msg:'⚠️规则3触发：股价跌破10日线 → 减仓至底仓信号（1成观察）'},
   {t:'规则4 · 5穿10放量加仓',s:'MA5刚金叉MA10 且 量>5日均量×1.5 且 收阳',msg:'⚠️规则4触发：5日线金叉10日线且放量50% → 加仓信号，量价齐升，明日计划加仓至满仓/重仓'},
   {t:'规则5 · 站稳10日放量加仓',s:'收盘 > MA10 且 量>5日均量×1.2',msg:'⚠️规则5触发：站稳10日线且温和放量 → 加仓信号，明日计划加仓1/2'},
-  {t:'规则6 · 无量急拉不封板减仓',s:'3分钟涨超3% 且 分钟量<前5分钟均量×0.5 且未封板',msg:'🚨规则6触发：无量急拉且未封板 → 减仓信号，计划立即减仓1/2'},
+  {t:'规则6 · 无量急拉不封板减仓',s:'近12分钟内3分钟涨超3% 且 急拉段量<前5分钟均量×0.5 且未封板',msg:'🚨规则6触发：无量急拉且未封板 → 减仓信号，计划立即减仓1/2'},
   {t:'规则7 · 连拉滞涨背离分批卖出',s:'连涨超3天 且 30分钟不创新高 且 分时MACD顶背离',msg:'⛔规则7触发：连续拉升后滞涨+分时背离 → 分批卖出信号，计划分批减仓（每次1/3），直至清零或留底仓'}
 ];
 function ruleKey(){return current.market+'.'+current.code}
@@ -1531,6 +1710,14 @@ function minuteMacdDiverge(prices){
   var p1=Math.max.apply(null,prices.slice(0,half)),p2=Math.max.apply(null,prices.slice(half));
   var d1=Math.max.apply(null,dif.slice(0,half)),d2=Math.max.apply(null,dif.slice(half));
   return p2>=p1*0.999&&d2<d1;
+}
+/* 涨停幅度：创业板/科创板20%、ST 5%、主板10% */
+function limitRatio(){
+  if(!current)return 1.1;
+  var code=String(current.code);
+  if(/^(300|301|302|688|689)/.test(code))return 1.2;
+  if((current.name||'').indexOf('ST')>=0)return 1.05;
+  return 1.1;
 }
 function evalRules(){
   if(!current)return null;
@@ -1575,23 +1762,27 @@ function evalRules(){
   var r5=ma10!=null&&last.close>ma10&&volr!=null&&volr>1.2;
   rs.push({trig:r5,msg:RULES_META[4].msg,
     det:[['今日收盘',fmt(last.close)],['MA10',fmt(ma10)],['量/5日均量',volr!=null?'×'+volr.toFixed(2):'--'],['触发阈值','收盘>MA10 且 ×1.2'],['计划','加仓1/2']]});
-  /* 规则6（盘中分时） */
+  /* 规则6（盘中分时·无量急拉不封板）：仅看最近12分钟窗口，已封板不触发 */
   var min=current.minute||[];
   var r6=false,r6msg=RULES_META[5].msg,r6det=[['分时数据',min.length?min.length+' 分钟':'暂无']];
   if(min.length>10){
     var ps=min.map(function(m2){return m2.price});
     var mv=[];for(var i=0;i<min.length;i++)mv.push(i?min[i].cv-min[i-1].cv:min[i].cv);
-    var lim=closes[n-1]!=null?Math.round(closes[n-1]*1.1*100)/100:null;
-    var max3=0;
-    for(var i2=3;i2<ps.length;i2++){var g=(ps[i2]/ps[i2-3]-1)*100;if(g>max3)max3=g;}
-    var curV=mv[mv.length-1];
-    var pre5=mv.slice(Math.max(0,mv.length-6),mv.length-1);
-    var p5=pre5.length?pre5.reduce(function(a,b){return a+b},0)/pre5.length:0;
-    var vr6=p5>0?curV/p5:null;
+    var lr=limitRatio();
+    var lim=closes[n-1]!=null?Math.round(closes[n-1]*lr*100)/100:null;
     var sealed=lim!=null&&ps[ps.length-1]>=lim*0.999;
-    r6=max3>3&&(sealed||(vr6!=null&&vr6<0.5));
-    if(sealed&&max3>3)r6msg='🚨规则6触发：已封涨停板，按规则看戏不动';
-    r6det=[['3分钟最大涨幅','+'+max3.toFixed(2)+'%'],['当前分钟量/前5分钟均量',vr6!=null?'×'+vr6.toFixed(2):'--'],['涨停价',lim!=null?fmt(lim):'--'],['封板状态',sealed?'已封板':'未封板'],['急拉判定',max3>3?'✓':'✗'],['缩量判定',vr6!=null&&vr6<0.5?'✓':'✗']];
+    /* 近12分钟内寻找最大3分钟涨幅（修复：旧版扫全天，早盘急拉+尾盘安静会被误判为无量急拉） */
+    var startI=Math.max(3,ps.length-12);
+    var max3=0,spikeEnd=startI;
+    for(var i2=startI;i2<ps.length;i2++){var g=(ps[i2]/ps[i2-3]-1)*100;if(g>max3){max3=g;spikeEnd=i2}}
+    /* 缩量：急拉3分钟合计量 vs 之前5分钟均量×3（与急拉段对齐，而非当前分钟） */
+    var s0=Math.max(0,spikeEnd-2);
+    var spikeVol=mv.slice(s0,spikeEnd+1).reduce(function(a,b){return a+b},0);
+    var pre5=mv.slice(Math.max(0,s0-5),s0);
+    var p5=pre5.length?pre5.reduce(function(a,b){return a+b},0)/pre5.length:0;
+    var vr6=p5>0?spikeVol/(p5*3):null;
+    r6=max3>3&&!sealed&&vr6!=null&&vr6<0.5;
+    r6det=[['近12分钟·3分钟最大涨幅','+'+max3.toFixed(2)+'%'],['急拉段量/前5分钟均量',vr6!=null?'×'+vr6.toFixed(2):'--'],['涨停幅度',(lr*100-100).toFixed(0)+'%'],['涨停价',lim!=null?fmt(lim):'--'],['封板状态',sealed?'已封板（本规则不触发）':'未封板'],['急拉判定',max3>3?'✓':'✗'],['缩量判定',vr6!=null&&vr6<0.5?'✓':'✗']];
   }
   rs.push({trig:r6,msg:r6msg,det:r6det});
   /* 规则7（连涨+滞涨+背离） */
@@ -1614,6 +1805,9 @@ function refreshRules(){
   var rs=evalRules();
   if(!rs){$('#rulesList').innerHTML='<div class="empty">K线数据不足，无法计算规则</div>';return}
   var cfg=ruleCfg[ruleKey()]||{};
+  /* 记住当前展开的规则，刷新数据后保持展开不关闭 */
+  var openIdx=[];
+  document.querySelectorAll('#rulesList .rule-row.open').forEach(function(r){openIdx.push(+r.getAttribute('data-rr'))});
   $('#rulesList').innerHTML=rs.map(function(r,i){
     return '<div class="rule-row'+(r.trig?' trig':'')+'" data-rr="'+i+'">'
       +'<div class="rule-head">'
@@ -1626,6 +1820,10 @@ function refreshRules(){
       +'</div></div>';
   }).join('')
   +'<div class="chart-hint">规则基于日线均线/量能+盘中分时实时计算 · 触发即标红 · 打开开关的规则触发时弹窗+闹铃+震动（30分钟内不重复响）</div>';
+  openIdx.forEach(function(i){
+    var el=document.querySelector('#rulesList .rule-row[data-rr="'+i+'"]');
+    if(el)el.classList.add('open');
+  });
   /* 触发报警：全部写入触发记录；开关开 → 弹窗+闹铃+震动，开关关 → 仅标红+记录 */
   rs.forEach(function(r,i){
     if(!r.trig)return;
@@ -1636,7 +1834,7 @@ function refreshRules(){
     pruneFired();
     if(cfg[i+1]){
       toast(r.msg);
-      notify('五日K规则预警 · '+(current.name||''),r.msg);
+      notify('五日K规则示警 · '+(current.name||''),r.msg);
       beep(3);
       if(navigator.vibrate)navigator.vibrate([200,100,200,100,300]);
     }
@@ -1745,16 +1943,23 @@ var SIG={kl:{},fund:{},sig:{},busy:false};
 function fetchSigData(){
   if(!stocks.length||SIG.busy)return;
   SIG.busy=true;
-  /* ① 批量主力资金（东财 ulist：主力净流入f62 / 成交额f6 / 流通市值f21 / 涨跌幅f3） */
+  /* ① 批量主力资金（东财 ulist：主力净流入f62 / 成交额f6 / 流通市值f21 / 涨跌幅f3 / 最后成交时间f124） */
   var secids=stocks.map(function(s){return s.market+'.'+s.code}).join(',');
-  getJSON('https://push2delay.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&secids='+encodeURIComponent(secids)+'&fields=f2,f3,f6,f12,f13,f14,f21,f62')
+  getJSON('https://push2delay.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&secids='+encodeURIComponent(secids)+'&fields=f2,f3,f6,f12,f13,f14,f21,f62,f124')
     .then(function(j){
       var diff=j&&j.data&&j.data.diff;
       var arr=Array.isArray(diff)?diff:(diff?Object.values(diff):[]);
       arr.forEach(function(it){
         if(!it||it.f12==null)return;
         function num(v){return(v==null||v==='-'||isNaN(v))?null:Number(v)}
-        SIG.fund[it.f13+'.'+it.f12]={zl:num(it.f62),amt:num(it.f6),fc:num(it.f21),pct:num(it.f3)};
+        var fk=it.f13+'.'+it.f12;
+        SIG.fund[fk]={zl:num(it.f62),amt:num(it.f6),fc:num(it.f21),pct:num(it.f3)};
+        /* 历史累积：f124为最后成交时间戳，据此打真实交易日标签 */
+        var zl=num(it.f62),ts=num(it.f124);
+        if(zl!=null&&ts){
+          var d=new Date(ts*1000);function pd(x){return(x<10?'0':'')+x}
+          pushFundHist(fk,d.getFullYear()+'-'+pd(d.getMonth()+1)+'-'+pd(d.getDate()),{zl:zl});
+        }
       });
     }).catch(function(){});
   /* ② 每股日K（12根：MA5/MA10/5日均量），约15秒缓存，双域名降级，失败保留旧数据 */
@@ -1843,9 +2048,9 @@ function evalListSignals(){
           fundFired[fk]=now2;
           pruneFired();
           var txt=(s.name||s.code)+' '+warn;
-          addLog('主力资金预警',txt);
-          toast('⚠️ 主力资金预警：'+txt);
-          notify('主力资金预警 · '+(s.name||s.code),txt);
+          addLog('主力资金示警',txt);
+          toast('⚠️ 主力资金示警：'+txt);
+          notify('主力资金示警 · '+(s.name||s.code),txt);
           beep(3);
           if(navigator.vibrate)navigator.vibrate([200,100,200,100,300]);
         }
@@ -1965,7 +2170,7 @@ function afterScan(){
 function updateRecBtn(){
   var fresh=recList.filter(function(x){return !recState.seen[x.bk]}).length;
   var tab=$('#tabRec');
-  if(tab)tab.classList.toggle('flash',fresh>0);
+  if(tab)tab.classList.remove('flash');
   $('#congrats').style.display=fresh>0?'':'none';
 }
 function renderRec(){
@@ -1986,7 +2191,7 @@ function renderRec(){
       +'<div class="rec-mechsub">触发机制 '+ms.map(function(i){return '<span class="mn">'+i+'</span>'}).join('')+' · '+esc(mechNames)+'</div>'
       +(x.top&&x.top.length?'<div class="rec-cons" data-bk="'+x.bk+'">'
         +'<label style="flex:1 1 100%;font-size:10.5px;color:var(--dim)">核心领涨股（点击查看详情）</label>'
-        +x.top.map(function(s){return '<button class="rec-stk" data-m="'+s.f13+'" data-c="'+s.f12+'">'+esc(s.f14)+' <span class="num '+cls(s.f3)+'">'+fmtPct(s.f3)+'</span></button>'}).join('')
+        +x.top.map(function(s){return '<button class="rec-stk" data-m="'+s.f13+'" data-c="'+s.f12+'"><em>'+esc(s.f14)+'</em><span class="num '+cls(s.f3)+'">'+fmtPct(s.f3)+'</span></button>'}).join('')
       +'</div>':'');
     }).join('');
   }
@@ -2268,6 +2473,7 @@ function showPage(p){
   if(p==='alarms')renderAlarms();
   if(p==='list')renderList();
   if(p==='rec')renderRec();
+  if(p==='xuangu')xgEnter();
 }
 document.querySelectorAll('.tab').forEach(function(b){
   b.addEventListener('click',function(){showPage(b.getAttribute('data-tab'))});
@@ -2315,6 +2521,565 @@ if('serviceWorker'in navigator){
     syncBackground();
   }).catch(function(){});
 }
+
+/* ================= 玄股 · 六爻起卦 ================= */
+/* 八卦序数（先天二进制序）：乾7 兑6 离5 震4 巽3 坎2 艮1 坤0；行业由上卦主导 */
+var XG_TRIGRAM=['坤','艮','坎','巽','震','离','兑','乾'];  /* 索引0..7 → 卦名 */
+var XG_TRIGRAM_SYM=['承载','止止','流动','渗透','震动','光明','悦泽','刚健'];  /* 象征 */
+
+/* 64卦数据：索引 = 上卦×8 + 下卦（line0=bottom yang/yin，line5=top）；fields: 卦名, 卦辞原文, 白话, 详细解读, 五行, 象征 */
+/* 上卦顺序：坤(0) 艮(1) 坎(2) 巽(3) 震(4) 离(5) 兑(6) 乾(7) ；下卦同理 */
+var XG_HEX=[
+  /* upper=坤(0) × lower=坤..乾 */
+  {n:'坤为地',w:'元，亨，利牝马之贞。',m:'柔顺之象。',r:'上坤下坤，六爻纯阴、至柔至顺。利于厚德载物、顺势而为、辅佐他人、稳健守成。',wx:'土',sy:'柔顺厚德'},
+  {n:'地山谦',w:'亨，君子有终。',m:'谦下之象。',r:'上坤下艮，地中有山、外卑内高。利于谦下自守、低调积累，终得大成。',wx:'土',sy:'谦下守成'},
+  {n:'地水师',w:'贞，丈人吉，无咎。',m:'军旅之象。',r:'上坤下坎，地中有水、主军旅出师。利于组织化运作、纪律严明、兵精粮足。',wx:'水',sy:'军旅组织'},
+  {n:'地风升',w:'元亨，用见大人，勿恤，南征吉。',m:'上升之时。',r:'上坤下巽，巽木根于坤土、缓缓而升。利于稳步上升、步步登高、扎根深耕。',wx:'木',sy:'稳步上升'},
+  {n:'地雷复',w:'亨。出入无疾，朋来无咎。',m:'复归之时。',r:'上坤下震，一阳来复于地。主否极泰来、循环重启，利于反弹复苏、初创起步。',wx:'木',sy:'否极泰来'},
+  {n:'地火明夷',w:'利艰贞。',m:'韬光之时。',r:'上坤下离，明入地中、光被掩。利于韬光养晦、隐藏实力、暗处蓄势。',wx:'火',sy:'韬光养晦'},
+  {n:'地泽临',w:'元，亨，利，贞。至于八月有凶。',m:'临下之时。',r:'上坤下兑，泽下地中、主亲临督导。利于躬身入局、亲临一线，但盛极须防转衰。',wx:'土',sy:'临下督导'},
+  {n:'地天泰',w:'小往大来，吉亨。',m:'通泰之时。',r:'上坤下乾，地天相交、阴阳和合。主诸事通泰、上下和谐，最利大展宏图。',wx:'土',sy:'通泰和合'},
+  /* upper=艮(1) */
+  {n:'山地剥',w:'不利有攸往。',m:'剥落之时。',r:'上艮下坤，山附于地、剥落不止。主衰落剥蚀，宜守不宜攻，等待否极泰来。',wx:'土',sy:'剥落衰落'},
+  {n:'艮为山',w:'艮其背，不获其身，行其庭，不见其人，无咎。',m:'止止之象。',r:'上艮下艮，两山重立，主静止止步。宜止步静观、不妄动，蓄势待时机成熟。',wx:'土',sy:'静止止步'},
+  {n:'山水蒙',w:'亨。匪我求童蒙，童蒙求我。',m:'蒙稚之时。',r:'上艮下坎，山下有水、蒙昧未开。利于启蒙教育、新手入门、虚心求学。',wx:'土',sy:'蒙稚启蒙'},
+  {n:'山风蛊',w:'元亨，利涉大川。',m:'整治之时。',r:'上艮下巽，山下有风、蛊坏当治。主整治弊端、改革积弊、整饬后重焕生机。',wx:'木',sy:'整治革新'},
+  {n:'山雷颐',w:'贞吉。观颐，自求口实。',m:'养颐之象。',r:'上艮下震，山下有雷、需颐养之。利于养生健康、营养消费、培育扶持。',wx:'木',sy:'颐养培育'},
+  {n:'山火贲',w:'亨。小利有所往。',m:'文饰之时。',r:'上艮下离，山下有火，主文饰美化。利于品牌外观、营销包装。',wx:'火',sy:'文饰美化'},
+  {n:'山泽损',w:'有孚，元吉，无咎。',m:'减损之时。',r:'上艮下兑，山下有泽、泽损山益。利于减损增益、削冗增效、聚焦核心。',wx:'土',sy:'减损增益'},
+  {n:'山天大畜',w:'利贞，不家食吉，利涉大川。',m:'大蓄之象。',r:'上艮下乾，山蕴于天、主大蓄积聚。利于厚积薄发、储备资源、待机大展。',wx:'金',sy:'大蓄厚积'},
+  /* upper=坎(2) */
+  {n:'水地比',w:'吉。原筮，元永贞，无咎。',m:'亲比之时。',r:'上坎下坤，水附于地，主亲比互助。利于结盟合作、互利共生、抱团取暖。',wx:'水',sy:'亲比互助'},
+  {n:'水山蹇',w:'利西南，不利东北。',m:'艰难之时。',r:'上坎下艮，水阻于山，前路艰难。宜知难而退、绕道而行，勉力强进则凶。',wx:'水',sy:'艰难险阻'},
+  {n:'坎为水',w:'习坎，有孚，维心亨，行有尚。',m:'重险之象。',r:'上坎下坎，两水相重，主重重险难。利于以诚信渡险、习以为常、险中求胜。',wx:'水',sy:'重重险难'},
+  {n:'水风涣',w:'亨。王假有庙，利涉大川。',m:'涣散之时。',r:'上坎下巽，风行水上，主涣散释怀。利于化解郁结、流通阻滞、跨区跨业扩张。',wx:'水',sy:'涣散流通'},
+  {n:'水雷屯',w:'元，亨，利，贞。勿用，有攸往。',m:'草创之时。',r:'上坎下震，雷雨交作于初生。万事草创艰难，宜守正待时、储备资源、不轻举妄动。',wx:'水',sy:'草创艰难'},
+  {n:'水火既济',w:'亨小，利贞。初吉终乱。',m:'事已成就。',r:'上坎下离，水火相交、阴阳已和。主事已成，但须防盛极而衰、功成身退。',wx:'水',sy:'既济防衰'},
+  {n:'水泽节',w:'亨，苦节不可贞。',m:'节制之时。',r:'上坎下兑，泽水有节，主节制有度。利于成本控制、量入为出、规划纪律。',wx:'水',sy:'节制有度'},
+  {n:'水天需',w:'有孚，光亨贞吉，利涉大川。',m:'等待之时。',r:'上坎下乾，水在天上、需云致雨。宜耐心等待、养精蓄锐，不急不躁终有云开月明。',wx:'水',sy:'耐心等待'},
+  /* upper=巽(3) */
+  {n:'风地观',w:'盥而不荐，有孚顒若。',m:'观察之时。',r:'上巽下坤，风行地上，主观察教化。宜冷静观察、调研市场、观摩形势，洞察先机。',wx:'木',sy:'观察教化'},
+  {n:'风山渐',w:'女归吉，利贞。',m:'渐进之时。',r:'上巽下艮，山下有风，主循序渐进而非突进。利于稳步推进、按部就班，忌一蹴而就。',wx:'木',sy:'循序渐进'},
+  {n:'风水井',w:'改邑不改井，无丧无得。',m:'井养之象。',r:'上巽下坎，井水长养而不竭。主稳定供给、滋养民生，利于公用事业、长青资产。',wx:'水',sy:'井养长流'},
+  {n:'巽为风',w:'小亨，利有所往，利见大人。',m:'风行之象。',r:'上巽下巽，两风相随，主谦逊渗透。利于文化传播、慢渗透市场、谦逊求进。',wx:'木',sy:'谦逊渗透'},
+  {n:'风雷益',w:'利有攸往，利涉大川。',m:'增益之时。',r:'上巽下震，风雷激荡，主增益进补。利于加码投入、扩大规模、增资助力。',wx:'木',sy:'增益加码'},
+  {n:'风火家人',w:'利女贞。',m:'家庭之象。',r:'上巽下离，风助火燃，主齐家治业。利于内部团结、家企同治、稳健经营。',wx:'火',sy:'齐家治业'},
+  {n:'风泽中孚',w:'豚鱼吉，利涉大川，利贞。',m:'诚信之象。',r:'上巽下兑，风行泽上，主中心诚信。利于诚信经营、品牌建设、以德服人。',wx:'木',sy:'中心诚信'},
+  {n:'风天小畜',w:'亨。密云不雨，自我西郊。',m:'小有蓄积。',r:'上巽下乾，风行天上、密云未雨。利于小幅积累、暂缓爆发，等待临界点。',wx:'木',sy:'小蓄待发'},
+  /* upper=震(4) */
+  {n:'雷地豫',w:'利建侯行师。',m:'欢乐之时。',r:'上震下坤，雷出地奋，主欢乐预备。利于营造氛围、激励士气、发动众人共襄盛举。',wx:'木',sy:'欢乐预备'},
+  {n:'雷山小过',w:'亨，利贞。',m:'小有过越。',r:'上震下艮，山下有雷，主小事可过、大事不可。宜从小处着手，量力而行。',wx:'木',sy:'小过慎行'},
+  {n:'雷水解',w:'利西南。无所往，其来复吉。',m:'解除之时。',r:'上震下坎，雷雨交作，主困难解除。利于化险为夷、解除束缚、危机后重生。',wx:'水',sy:'解困脱险'},
+  {n:'雷风恒',w:'亨，无咎，利贞。',m:'恒久之道。',r:'上震下巽，震雷巽风，长久不变。利于持久经营、长线布局，最忌朝秦暮楚。',wx:'木',sy:'恒久长守'},
+  {n:'震为雷',w:'亨。震来虩虩，笑言哑哑。',m:'震动之象。',r:'上震下震，两雷相叠，主警醒奋发。利于大动作、突发行情、重组并购。',wx:'木',sy:'警醒奋发'},
+  {n:'雷火丰',w:'亨。王假之，勿忧，宜日中。',m:'盛大之时。',r:'上震下离，雷火交辉，主盛大丰盈。利于高产丰收、业绩放量，但盛极须防转衰。',wx:'火',sy:'盛大丰盈'},
+  {n:'雷泽归妹',w:'征凶，无攸利。',m:'归宿之时。',r:'上震下兑，雷泽归妹，主归宿契合。利于合作归附、兼并整合，但须守正防失。',wx:'木',sy:'归附整合'},
+  {n:'雷天大壮',w:'利贞。',m:'壮大之时。',r:'上震下乾，雷行天上，主威猛壮大。利于强势进攻、规模扩张，但勿恃壮凌弱。',wx:'木',sy:'壮大进取'},
+  /* upper=离(5) */
+  {n:'火地晋',w:'康侯用锡马蕃庶，昼日三接。',m:'晋升之象。',r:'上离下坤，日出地上，光明晋长。主晋升进级、声名日隆，利于求进取进、正道上行。',wx:'火',sy:'晋升高升'},
+  {n:'火山旅',w:'小亨，旅贞吉。',m:'漂泊之时。',r:'上离下艮，火燃山上，主漂泊不定。宜谨慎前行、不贪不躁，步步为营方得安稳。',wx:'火',sy:'漂泊前行'},
+  {n:'火水未济',w:'亨。小狐汔济，濡其尾。',m:'未竟之功。',r:'上离下坎，火炎水降，阴阳未交。功亏一篑、尚须努力，宜坚持到底方见曙光。',wx:'火',sy:'未竟功成'},
+  {n:'火风鼎',w:'元吉，亨。',m:'鼎新之象。',r:'上离下巽，木火相鼎，主革故鼎新、烹饪取新。利于创业创新、技术革新、产品迭代。',wx:'火',sy:'鼎新变革'},
+  {n:'火雷噬嗑',w:'亨，利用狱。',m:'咬合之时。',r:'上离下震，雷电交威，主咬合去阻。利于排除障碍、清理阻碍、决断悬案。',wx:'火',sy:'咬合破阻'},
+  {n:'离为火',w:'利贞，亨。畜牝牛，吉。',m:'光明之象。',r:'上离下离，两火相叠，主光明附丽。利于文化、传媒、电力、电子，凡光明所及皆得其利。',wx:'火',sy:'光明附丽'},
+  {n:'火泽睽',w:'小事吉。',m:'相违之时。',r:'上离下兑，火炎泽悦，二女同居志不同。利于求同存异、小事合作，大事须慎。',wx:'火',sy:'相违求同'},
+  {n:'火天大有',w:'元亨。',m:'大丰收时。',r:'上离下乾，火在天上，光明普照。主盛大富有、收获颇丰，利于登顶丰收。',wx:'火',sy:'盛大丰收'},
+  /* upper=兑(6) */
+  {n:'泽地萃',w:'亨。王假有庙。',m:'聚集之时。',r:'上兑下坤，泽水聚于大地，主万物归聚、人气聚合。宜聚众力、共享资源，忌孤军奋战。',wx:'金',sy:'聚合人气'},
+  {n:'泽山咸',w:'亨，利贞，取女吉。',m:'感应相通。',r:'上兑下艮，山泽通气，主两情相悦、上下感应。利于沟通协调、感召人心，谋事易成。',wx:'金',sy:'感应相通'},
+  {n:'泽水困',w:'亨，贞，大人吉。',m:'困顿之时。',r:'上兑下坎，泽水枯竭于下，主困顿艰难。此时宜固守本心、节约资源，等待破困之机。',wx:'水',sy:'困顿待破'},
+  {n:'泽风大过',w:'栋桡，利有攸往。',m:'非常之时。',r:'上兑下巽，栋梁弯曲，主非常之时。利于打破常规、主动调整策略，不宜守旧。',wx:'金',sy:'非常变革'},
+  {n:'泽雷随',w:'元，亨，利，贞。',m:'随顺之时。',r:'上兑下震，泽随雷动，主随顺时势。宜随主流顺势而为，不可逆势强求。',wx:'金',sy:'随顺时势'},
+  {n:'泽火革',w:'己日乃孚，元亨利贞。',m:'革故鼎新。',r:'上兑下离，泽火相革，主变革更新。最利于破旧立新、转型升级，革新正当其时。',wx:'火',sy:'革故鼎新'},
+  {n:'兑为泽',w:'亨，利贞。',m:'和悦之象。',r:'上兑下兑，两泽相连，主喜悦和悦。利于人际沟通、口舌表达、商业谈判。',wx:'金',sy:'和悦沟通'},
+  {n:'泽天夬',w:'扬于王庭，孚号有厉。',m:'决断之时。',r:'上兑下乾，泽决于天，主果断抉择。宜下定决心、清除阻碍，但须防过激。',wx:'金',sy:'果断决断'},
+  /* upper=乾(7) */
+  {n:'天地否',w:'否之匪人，不利君子贞，大往小来。',m:'闭塞不通之象。',r:'上乾下坤，刚柔不交，象征天地不交、上下隔阂。此时宜静守待变，规避冒进，等待时机破局。',wx:'土',sy:'闭塞不通'},
+  {n:'天山遁',w:'亨，小利贞。',m:'退避之时。',r:'上乾下艮，山高接天，宜主动隐退蓄势。卦象主避世修行、收敛锋芒，等待新一轮上升周期。',wx:'土',sy:'隐退蓄势'},
+  {n:'天水讼',w:'有孚，窒。惕中吉，终凶。',m:'争讼警戒。',r:'上乾下坎，刚强临险水，主口舌纷争。宜戒急用忍、化解矛盾，避免激化成长期冲突。',wx:'金',sy:'争讼警戒'},
+  {n:'天风姤',w:'女壮，勿用取女。',m:'偶然相遇。',r:'上乾下巽，一阴初生于纯阳，主邂逅机遇。万事开头、机遇乍现，宜顺势而为、把握初始信号。',wx:'金',sy:'邂逅机遇'},
+  {n:'天雷无妄',w:'元，亨，利，贞。',m:'勿妄动。',r:'上乾下震，天雷交动。宜顺应天时，勿轻举妄动。顺势者昌，逆势者困。',wx:'金',sy:'勿妄动'},
+  {n:'天火同人',w:'同人于野，亨。利涉大川。',m:'众人同心。',r:'上乾下离，天火同明，主志同道合。宜广结盟友、协同共进，适合联合行动与团队合作。',wx:'火',sy:'同心协力'},
+  {n:'天泽履',w:'履虎尾，不咥人，亨。',m:'如履虎尾。',r:'上乾下兑，刚履柔上，行事如踏虎尾般须小心谨慎。柔顺待人则吉，冒进则危。',wx:'金',sy:'谨慎行事'},
+  {n:'乾为天',w:'元，亨，利，贞。',m:'纯阳之象。',r:'六爻纯阳，象征刚健不息、自强奋斗。大利于事业开疆拓土，唯须坚守正道，不可傲慢自恃。',wx:'金',sy:'刚健自强'}
+];
+
+/* 玄股离线兜底池（32只 · 8行业×4股）：仅当全A股名单拉取失败且无缓存时使用 */
+var XG_POOL=[
+  /* 乾金 · 大盘蓝筹/龙头 */
+  {m:1,c:'600519',n:'贵州茅台',ind:'金·大盘蓝筹',intro:'中国白酒龙头，全球烈酒市值第一。',tb:'沪市主板'},
+  {m:1,c:'601318',n:'中国平安',ind:'金·金融保险',intro:'综合金融保险集团，寿险与财险并举。',tb:'沪市主板'},
+  {m:1,c:'600036',n:'招商银行',ind:'金·金融银行',intro:'国内零售银行龙头，财富管理领先。',tb:'沪市主板'},
+  {m:1,c:'600887',n:'伊利股份',ind:'金·消费蓝筹',intro:'中国乳制品行业龙头。',tb:'沪市主板'},
+  /* 坤土 · 公用事业/农业 */
+  {m:1,c:'600900',n:'长江电力',ind:'土·公用事业',intro:'水电运营龙头，长江流域大型水电站。',tb:'沪市主板'},
+  {m:1,c:'600028',n:'中国石化',ind:'土·能源化工',intro:'中国最大综合能源化工公司之一。',tb:'沪市主板'},
+  {m:1,c:'601669',n:'中国电建',ind:'土·基建建设',intro:'水电及基础设施工程承包龙头。',tb:'沪市主板'},
+  {m:1,c:'600585',n:'海螺水泥',ind:'土·建材水泥',intro:'国内水泥行业龙头。',tb:'沪市主板'},
+  /* 坎水 · 航运/物流/水务 */
+  {m:1,c:'601866',n:'中远海发',ind:'水·航运物流',intro:'集装箱租赁与航运物流服务。',tb:'沪市主板'},
+  {m:1,c:'601111',n:'中国国航',ind:'水·航空运输',intro:'中国国际航空龙头之一。',tb:'沪市主板'},
+  {m:0,c:'002352',n:'顺丰控股',ind:'水·快递物流',intro:'国内高端快递物流服务龙头。',tb:'深市主板'},
+  {m:1,c:'600026',n:'中远海能',ind:'水·航运能源',intro:'国内及国际油运、液化气运输龙头。',tb:'沪市主板'},
+  /* 离火 · 电子/新能源/传媒 */
+  {m:0,c:'002475',n:'立讯精密',ind:'火·消费电子',intro:'全球消费电子精密制造龙头。',tb:'深市主板'},
+  {m:1,c:'300750',n:'宁德时代',ind:'火·新能源',intro:'全球动力电池与储能电池龙头。',tb:'创业板'},
+  {m:0,c:'002230',n:'科大讯飞',ind:'火·人工智能',intro:'中国智能语音与人工智能龙头。',tb:'深市主板'},
+  {m:1,c:'601012',n:'隆基绿能',ind:'火·光伏新能源',intro:'全球单晶光伏产品制造龙头。',tb:'沪市主板'},
+  /* 震木 · 通信/军工/重组 */
+  {m:1,c:'600050',n:'中国联通',ind:'木·通信运营',intro:'国内三大通信运营商之一。',tb:'沪市主板'},
+  {m:1,c:'600316',n:'洪都航空',ind:'木·军工航空',intro:'教练机与无人机研制企业。',tb:'沪市主板'},
+  {m:0,c:'002714',n:'牧原股份',ind:'木·畜牧养殖',intro:'中国生猪养殖龙头。',tb:'深市主板'},
+  {m:0,c:'002241',n:'歌尔股份',ind:'木·消费电子',intro:'全球电声器件与智能硬件龙头。',tb:'深市主板'},
+  /* 巽木 · 消费/医药/传媒 */
+  {m:0,c:'000333',n:'美的集团',ind:'木·家电消费',intro:'白电三巨头之一，智能家居领先。',tb:'深市主板'},
+  {m:1,c:'601888',n:'中国中免',ind:'木·旅游消费',intro:'国内最大免税商品运营商。',tb:'沪市主板'},
+  {m:1,c:'603259',n:'药明康德',ind:'木·医药研发',intro:'全球医药研发外包服务龙头。',tb:'沪市主板'},
+  {m:0,c:'300015',n:'爱尔眼科',ind:'木·医疗服务',intro:'中国眼科医疗服务龙头。',tb:'创业板'},
+  /* 艮土 · 房地产/基建 */
+  {m:0,c:'000002',n:'万科A',ind:'土·房地产',intro:'国内住宅开发龙头之一。',tb:'深市主板'},
+  {m:1,c:'600048',n:'保利发展',ind:'土·房地产',intro:'央企房地产龙头。',tb:'沪市主板'},
+  {m:1,c:'601668',n:'中国建筑',ind:'土·基建央企',intro:'全球最大建筑工程承包商之一。',tb:'沪市主板'},
+  {m:1,c:'600170',n:'上海建工',ind:'土·地方基建',intro:'上海地区建筑施工龙头。',tb:'沪市主板'},
+  /* 兑金 · 金融/娱乐/消费 */
+  {m:1,c:'601398',n:'工商银行',ind:'金·国有大行',intro:'全球资产规模最大的商业银行。',tb:'沪市主板'},
+  {m:0,c:'300059',n:'东方财富',ind:'金·互联网券商',intro:'国内互联网金融信息服务龙头。',tb:'创业板'},
+  {m:0,c:'002142',n:'宁波银行',ind:'金·城商银行',intro:'国内城商行龙头，资产质量优。',tb:'深市主板'},
+  {m:1,c:'601688',n:'华泰证券',ind:'金·证券龙头',intro:'国内大型综合证券公司。',tb:'沪市主板'}
+];
+
+/* ================= 全A股股票池 · 八卦八宫行业映射 ================= */
+/* 八卦元数据：索引与 XG_TRIGRAM 一致（0坤1艮2坎3巽4震5离6兑7乾）——五行 / 方位 / 所主行业宫 */
+var XG_TRI_WX=['土','土','水','木','木','火','金','金'];
+var XG_TRI_DIR=['西南','东北','北','东南','东','南','西','西北'];
+var XG_TRI_GNAME=['地产基建','能源资源','公用交运','医药','消费','科技','金融','制造军工'];
+/* 东财二级行业 → 八宫全量映射（128行业全覆盖；新行业走关键词兜底，再兜底归坤·大地包容） */
+var XG_IND_TRI={
+  /* 坤 · 土 · 西南 · 地产基建 */
+  '房地产开发':0,'房地产服务':0,'房屋建设Ⅱ':0,'基础建设':0,'装修建材':0,'装修装饰Ⅱ':0,'水泥':0,'玻璃玻纤':0,'专业工程':0,'工程咨询服务Ⅱ':0,'非金属材料Ⅱ':0,'综合Ⅱ':0,
+  /* 艮 · 土 · 东北 · 能源资源（矿山矿藏、石化化工） */
+  '煤炭开采':1,'焦炭Ⅱ':1,'油气开采Ⅱ':1,'油服工程':1,'炼化及贸易':1,'工业金属':1,'小金属':1,'贵金属':1,'能源金属':1,'冶钢原料':1,'普钢':1,'特钢Ⅱ':1,'化学原料':1,'化学制品':1,'化学纤维':1,'塑料':1,'橡胶':1,'农化制品':1,
+  /* 坎 · 水 · 北 · 公用交运（水流舟行、输配流转） */
+  '电力':2,'燃气Ⅱ':2,'环境治理':2,'环保设备Ⅱ':2,'物流':2,'航运港口':2,'铁路公路':2,'航空机场':2,
+  /* 巽 · 木 · 东南 · 医药（草木入药、风气渗透） */
+  '中药Ⅱ':3,'化学制药':3,'生物制品':3,'医疗器械':3,'医疗服务':3,'医药商业':3,'医疗美容':3,'动物保健Ⅱ':3,
+  /* 震 · 木 · 东 · 消费（春木生发、民生百业、农林牧渔） */
+  '白酒Ⅱ':4,'非白酒':4,'饮料乳品':4,'食品加工':4,'休闲食品':4,'调味发酵品Ⅱ':4,'农产品加工':4,'一般零售':4,'专业连锁Ⅱ':4,'贸易Ⅱ':4,'服装家纺':4,'饰品':4,'化妆品':4,'个护用品':4,'家居用品':4,'白色家电':4,'小家电':4,'厨卫电器':4,'其他家电Ⅱ':4,'黑色家电':4,'家电零部件Ⅱ':4,'酒店餐饮':4,'旅游及景区':4,'旅游零售Ⅱ':4,'教育':4,'体育Ⅱ':4,'文娱用品':4,'养殖业':4,'种植业':4,'渔业':4,'林业Ⅱ':4,'农业综合Ⅱ':4,'饲料':4,'纺织制造':4,'造纸':4,'包装印刷':4,
+  /* 离 · 火 · 南 · 科技（光明附丽、电子光电、电力设备、文化传媒） */
+  'IT服务Ⅱ':5,'半导体':5,'软件开发':5,'计算机设备':5,'通信设备':5,'通信服务':5,'元件':5,'消费电子':5,'光学光电子':5,'电子化学品Ⅱ':5,'其他电子Ⅱ':5,'互联网电商':5,'游戏Ⅱ':5,'数字媒体':5,'出版':5,'影视院线':5,'电视广播Ⅱ':5,'广告营销':5,'电池':5,'光伏设备':5,'风电设备':5,'电网设备':5,'其他电源设备Ⅱ':5,'照明设备Ⅱ':5,
+  /* 兑 · 金 · 西 · 金融（金口财帛） */
+  '银行Ⅱ':6,'证券Ⅱ':6,'保险Ⅱ':6,'多元金融':6,'专业服务':6,
+  /* 乾 · 金 · 西北 · 制造军工（金戈铁马、机械兵装） */
+  '专用设备':7,'工程机械':7,'通用设备':7,'自动化设备':7,'轨交设备Ⅱ':7,'军工电子Ⅱ':7,'地面兵装Ⅱ':7,'航空装备Ⅱ':7,'航天装备Ⅱ':7,'航海装备Ⅱ':7,'汽车零部件':7,'商用车':7,'乘用车':7,'摩托车及其他':7,'汽车服务':7,'电机Ⅱ':7,'金属新材料':7
+};
+/* 新行业关键词兜底（东财未来新增行业名） */
+var XG_TRI_KW=[
+  ['房地产','房产','建设','建筑','基建','装饰','装修','园林','物业','建材','水泥','玻璃','综合'],
+  ['煤','油','气','钢','铁','金属','矿','采掘','化工','化学','化纤','塑','橡'],
+  ['电力','燃气','环保','水务','环境','物流','港','航','铁路','公路','机场','交通','运输','公用'],
+  ['医','药','疫苗','保健','生物'],
+  ['酒','食品','饮料','零售','贸易','电商','服装','饰','珠宝','美容','护理','家电','纺织','酒店','旅游','餐','农','养殖','种植','渔','林','饲','宠物','教育','体育','文娱','造纸','包装'],
+  ['半导体','电子','软件','计算机','通信','互联网','信息','数据','IT','游戏','传媒','光学','电池','光伏','风电','电网','电源','照明','出版','影视','广播','广告'],
+  ['银行','证券','保险','金融','信托','期货','创投','服务'],
+  ['设备','机械','仪器','仪表','汽车','军工','航天','航空','船舶','兵器','电气','机器人','轴承','工控','金属制品']
+];
+function xgTriOfInd(ind){
+  ind=String(ind||'');
+  if(XG_IND_TRI[ind]!=null)return XG_IND_TRI[ind];
+  for(var t=0;t<8;t++){
+    var kws=XG_TRI_KW[t];
+    for(var i=0;i<kws.length;i++)if(ind.indexOf(kws[i])>-1)return t;
+  }
+  return 0;  /* 坤 · 大地包容万象 */
+}
+var XG_LS_STOCKS='xg_stocks_v2';
+var xgAllStocks=null,xgStocksLoading=null,xgStocksFailed=false,xgGroups=null;
+function xgCacheStocks(){
+  try{
+    var c=JSON.parse(localStorage.getItem(XG_LS_STOCKS)||'null');
+    /* 缓存1天：每日自动刷新名单——退市股剔除、新上市股自动纳入 */
+    if(c&&c.list&&c.list.length>3000&&Date.now()-c.t<864e5){xgAllStocks=c.list;return true}
+  }catch(e){}
+  return false;
+}
+/* 东财 push2delay clist 分页拉取沪深全部A股（主板/创业板/科创板），过滤退市股；每页100（服务端上限），6页并发 */
+function xgLoadAllStocks(){
+  if(xgAllStocks)return Promise.resolve(xgAllStocks);
+  if(xgStocksLoading)return xgStocksLoading;
+  if(xgCacheStocks()){xgTipSet();return Promise.resolve(xgAllStocks)}
+  xgStocksLoading=new Promise(function(res){
+    var out=[],total=0,fail=0,pn=1;
+    var FS='m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23';
+    function one(p){
+      return getJSON('https://push2delay.eastmoney.com/api/qt/clist/get?pn='+p+'&pz=100&po=0&np=1&fltt=2&invt=2&fid=f12&fs='+FS+'&fields=f12,f13,f14,f100').then(function(d){
+        var diff=d&&d.data&&d.data.diff;
+        if(!diff)return 0;  /* 空页：已越过末页 */
+        if(d.data.total)total=d.data.total;
+        if(!Array.isArray(diff)){var a=[];for(var k in diff)a.push(diff[k]);diff=a}
+        var cnt=0;
+        for(var i=0;i<diff.length;i++){
+          var s=diff[i],nm=String(s.f14||''),ind=String(s.f100||'');
+          if(nm.indexOf('退')>-1||nm.indexOf('PT')===0||ind==='-')continue;  /* 过滤退市/长期停牌 */
+          out.push({m:s.f13,c:String(s.f12),n:nm,ind:ind});
+          cnt++;
+        }
+        return cnt;
+      });
+    }
+    function finalize(){
+      if(out.length>1000){
+        out.sort(function(a,b){return a.m-b.m||(a.c<b.c?-1:a.c>b.c?1:0)});
+        xgAllStocks=out;xgGroups=null;
+        try{localStorage.setItem(XG_LS_STOCKS,JSON.stringify({t:Date.now(),list:out}))}catch(e){}
+        xgTipSet();
+        res(xgAllStocks);
+      }else{
+        xgStocksFailed=true;xgTipSet();
+        res(null);
+      }
+    }
+    function batch(){
+      var ps=[];
+      for(var i=0;i<6&&pn<=120;i++,pn++)ps.push(one(pn).catch(function(){fail++;return -1}));
+      return Promise.all(ps).then(function(rs){
+        var ok=0,added=0;
+        rs.forEach(function(r){if(r>0)added+=r;if(r>=0)ok++});
+        /* 整批均为成功但零新增 = 已到末页；失败过多或翻页上限也收尾 */
+        if((ok>0&&added===0)||fail>=18||pn>120){
+          finalize();
+        }else{
+          xgTipSet(out.length,total);
+          return batch();
+        }
+      });
+    }
+    batch();
+  });
+  return xgStocksLoading;
+}
+function xgEnsureStocks(){
+  return xgLoadAllStocks().then(function(){return true}).catch(function(){xgStocksFailed=true;return false});
+}
+/* 八宫分组：全A股按行业归入八卦所主八宫 */
+function xgBuildGroups(){
+  if(!xgAllStocks)return;
+  if(xgGroups)return;
+  xgGroups=[[],[],[],[],[],[],[],[]];
+  for(var i=0;i<xgAllStocks.length;i++){
+    var s=xgAllStocks[i];
+    xgGroups[xgTriOfInd(s.ind)].push(s);
+  }
+}
+/* 状态行：加载进度 / 池规模（不含任何算法字样） */
+function xgTipSet(loaded,total){
+  var tip=$('#xgPoolTip');if(!tip)return;
+  if(loaded!=null){tip.textContent='沪深A股名单加载中 '+loaded+'/'+(total||'—');return}
+  if(xgAllStocks)tip.textContent='沪深A股 '+xgAllStocks.length+' 只 · 每日更新（退市剔除 · 新股纳入）';
+  else if(xgStocksFailed)tip.textContent='网络受限 · 暂用内置精选池';
+  else tip.textContent='沪深A股名单加载中…';
+}
+function xgEnter(){
+  xgTipSet();
+  xgLoadAllStocks().then(function(){xgTipSet()}).catch(function(){xgTipSet()});
+}
+/* 渲染玄股页：初始化与重置（入口为底部Tab，直接切换保留本轮状态） */
+function resetXuangu(){
+  xg.lines=[];xg.busy=false;xg.result=null;
+  $('#xgPop').classList.remove('show');
+  $('#xgPop').textContent='';
+  $('#xgTurtle').classList.remove('shake');
+  $('#xgResult').innerHTML='';
+  document.querySelectorAll('#page-xuangu .xg-cnt-dot').forEach(function(d){d.classList.remove('on')});
+  document.querySelector('#page-xuangu .xg-cnt-dot[data-i="0"]').classList.add('on');
+  $('#xgTip').textContent='轻点龟壳 · 第一爻 · 壹';
+}
+/* 玄股页返回招股页 */
+$('#btnXgBack').addEventListener('click',function(){
+  showPage('rec');
+});
+
+/* 摇一爻（唯一入口：点击龟壳） */
+function xuanShake(){
+  if(xg.busy)return;
+  if(xg.lines.length>=6)return;
+  xg.busy=true;
+  var n=xg.lines.length;  /* 0..5 */
+  var CN=['壹','贰','叁','肆','伍','陆'];
+  xgChime(false);  /* 铜器碰撞音 */
+  /* 1. 龟壳晃动 */
+  var tl=$('#xgTurtle');
+  tl.classList.remove('shake');
+  void tl.offsetWidth;
+  tl.classList.add('shake');
+  /* 1.5 龟壳背后光晕扩散一次 */
+  var halo=$('#xgHalo');
+  if(halo){halo.classList.remove('burst'); void halo.offsetWidth; halo.classList.add('burst')}
+  /* 2. 摇晃期间粒子 */
+  spawnParticles(14);
+  /* 3. 晃动结束后弹数字 + 记录爻 */
+  setTimeout(function(){
+    var v=Math.floor(Math.random()*4);  /* 0少阳 1少阴 2老阳 3老阴 */
+    xg.lines.push(v);
+    var pop=$('#xgPop');
+    pop.textContent=CN[n];
+    pop.classList.remove('show');
+    void pop.offsetWidth;
+    pop.classList.add('show');
+    /* 标记计数器 */
+    document.querySelectorAll('#page-xuangu .xg-cnt-dot').forEach(function(d,i){d.classList.toggle('on',i<=n)});
+    var nextN=n+1;
+    if(nextN<6){
+      $('#xgTip').textContent='第'+(nextN+1)+'爻 · '+(['壹','贰','叁','肆','伍','陆'][nextN]);
+    }else{
+      $('#xgTip').textContent='六爻已成 · 解卦中…';
+    }
+    /* 4. 第六爻 → 自动出卦 */
+    setTimeout(function(){
+      xg.busy=false;
+      if(xg.lines.length>=6){
+        xuanFinal();
+      }
+    },750);
+  },560);
+}
+function spawnParticles(n){
+  var host=$('#xgParticles');
+  for(var i=0;i<n;i++){
+    var p=document.createElement('span');
+    p.className='xg-p';
+    var ang=(Math.PI*2)*(i/n)+Math.random()*.6;
+    var dist=80+Math.random()*70;
+    p.style.setProperty('--dx',Math.cos(ang)*dist+'px');
+    p.style.setProperty('--dy',Math.sin(ang)*dist+'px');
+    p.style.animationDelay=(Math.random()*.25)+'s';
+    host.appendChild(p);
+    void p.offsetWidth;
+    p.classList.add('fly');
+    (function(el){setTimeout(function(){el.remove()},1500)})(p);
+  }
+}
+$('#xgTurtle').addEventListener('click',xuanShake);
+
+/* 铜器碰撞音效：Web Audio 合成小铜铃（非谐分音 + 快速衰减 + 随机音高） */
+var xgAC=null;
+function xgChime(final){
+  try{
+    if(!xgAC)xgAC=new (window.AudioContext||window.webkitAudioContext)();
+    if(xgAC.state==='suspended')xgAC.resume();
+    var t=xgAC.currentTime;
+    var base=final?540:(900+Math.random()*560);
+    var strikes=final?1:(2+Math.floor(Math.random()*2));  /* 出卦一声沉稳，摇爻时2~3声轻碰 */
+    for(var k=0;k<strikes;k++){
+      var st=t+k*(0.06+Math.random()*0.05);
+      var f=base*(1+(Math.random()*0.06-0.03));
+      xgBell(st,f,final?0.22:(0.09+Math.random()*0.05),final?1.5:0.45);
+    }
+  }catch(e){}
+}
+function xgBell(st,f,vol,dur){
+  var partials=[1,2.76,5.4,8.93];  /* 铜铃非谐分音 */
+  for(var i=0;i<partials.length;i++){
+    var o=xgAC.createOscillator(),g=xgAC.createGain();
+    o.type='sine';
+    o.frequency.value=f*partials[i];
+    var v=vol/Math.pow(i+1,1.7);
+    g.gain.setValueAtTime(0,st);
+    g.gain.linearRampToValueAtTime(v,st+0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001,st+dur/(1+i*0.4));
+    o.connect(g);g.connect(xgAC.destination);
+    o.start(st);o.stop(st+dur+0.1);
+  }
+}
+
+/* 玄股页整体背景：灰尘小粒子（canvas，随机飘散、隐约闪烁；仅玄股页激活时绘制） */
+(function(){
+  var cv=$('#xgDust');if(!cv)return;
+  var ctx=cv.getContext('2d'),W=0,H=0,ps=[];
+  function size(){
+    var r=cv.parentElement.getBoundingClientRect();
+    W=cv.width=Math.max(1,Math.round(r.width));
+    H=cv.height=Math.max(1,Math.round(r.height));
+  }
+  function init(){
+    size();
+    ps=[];
+    var n=Math.round(W*H/15000);
+    if(n<26)n=26;if(n>70)n=70;
+    for(var i=0;i<n;i++)ps.push({
+      x:Math.random()*W, y:Math.random()*H,
+      r:0.4+Math.random()*1.1,                       /* 很小的尘埃 */
+      vx:(Math.random()-.5)*.14, vy:(Math.random()-.5)*.11,
+      ph:Math.random()*Math.PI*2, pv:.004+Math.random()*.01
+    });
+  }
+  function tick(){
+    var act=document.querySelector('.page.active');
+    if(act&&act.id==='page-xuangu'){
+      var pr=cv.parentElement.getBoundingClientRect();
+      if(Math.abs(pr.width-W)>2||Math.abs(pr.height-H)>2)init();  /* 页面隐藏时初尺寸为0，激活后自动重算 */
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<ps.length;i++){
+        var p=ps[i];
+        p.x+=p.vx; p.y+=p.vy; p.ph+=p.pv;
+        if(p.x<-4)p.x=W+4; if(p.x>W+4)p.x=-4;
+        if(p.y<-4)p.y=H+4; if(p.y>H+4)p.y=-4;
+        var a=.08+ .18*(0.5+0.5*Math.sin(p.ph));   /* 隐约明灭 */
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle='rgba(240,220,170,'+a.toFixed(3)+')';
+        ctx.fill();
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  init();tick();
+  window.addEventListener('resize',init);
+})();
+/* 空闲环绕粒子：小颗粒随机分布，逆时针旋转 */
+(function(){
+  var host=$('#xgOrbits');
+  if(!host)return;
+  for(var i=0;i<12;i++){
+    var d=document.createElement('span');
+    d.className='xg-orb';
+    d.style.setProperty('--r',(72+Math.random()*62)+'px');          /* 随机半径 */
+    d.style.setProperty('--a',(Math.random()*360)+'deg');            /* 随机起始角 */
+    d.style.setProperty('--t',(14+Math.random()*18)+'s');            /* 随机周期（逆时针） */
+    d.style.setProperty('--tt',(2+Math.random()*3)+'s');             /* 随机闪烁周期 */
+    d.style.setProperty('--d',(-Math.random()*20)+'s');
+    d.style.width=d.style.height=(3+Math.random()*3)+'px';
+    host.appendChild(d);
+  }
+})();
+
+/* 出卦：上卦定八宫行业，宫内依卦意抽股 */
+function xuanFinal(){
+  var lines=xg.lines;
+  /* 六爻按初爻→上爻顺序组成6位四进制数（少阳0 少阴1 老阳2 老阴3），转换为十进制整数 */
+  var dec=0;for(var i=0;i<6;i++)dec=dec*4+lines[i];
+  /* 6爻 → 6位二进制：底爻bit0、上爻bit5；阳=1（定本卦卦象） */
+  var hexVal=0;
+  for(var i=0;i<6;i++){
+    var yang=(lines[i]===0||lines[i]===2);
+    if(yang)hexVal|=(1<<i);
+  }
+  var upper=(hexVal>>3)&7;  /* 上卦 = line4-6 */
+  var lower=hexVal&7;       /* 下卦 = line1-3 */
+  var hex=XG_HEX[upper*8+lower];
+  $('#xgTip').textContent='六爻已成 · 天机推演中…';
+  xgEnsureStocks().then(function(){
+    xgBuildGroups();
+    var grp;
+    if(xgAllStocks&&xgGroups){
+      grp=xgGroups[upper];                       /* 上卦所主八宫之签池 */
+      if(!grp||!grp.length)grp=xgAllStocks;
+    }else{
+      grp=XG_POOL;                               /* 离线兜底池 */
+    }
+    var M=grp.length;
+    var dayShift=Math.floor(Date.now()/864e5)%M; /* 当日轮转起点：宫大于卦意组合数时保证全宫皆有入签机会 */
+    var ix=(dec%M+dayShift)%M;
+    var stk=grp[ix];
+    renderXgResult(hex,lines,stk,upper,lower);
+    fetchXgQuote(stk);
+    xgChime(true);                               /* 出卦一声沉稳铜音 */
+  });
+}
+/* 渲染结果 */
+function renderXgResult(hex,lines,stk,upper,lower){
+  var LINE_NAME=['少阳','少阴','老阳','老阴'];
+  var POS=['初','二','三','四','五','上'];
+  var lineTxt=lines.map(function(v,i){return POS[i]+'爻·'+LINE_NAME[v]}).join(' · ');
+  var sTri=xgTriOfInd(stk.ind);
+  var symU=XG_TRIGRAM_SYM[upper],symL=XG_TRIGRAM_SYM[lower];
+  var triU=XG_TRIGRAM[upper],triL=XG_TRIGRAM[lower];
+  var wxU=XG_TRI_WX[upper],wxL=XG_TRI_WX[lower];
+  var dirU=XG_TRI_DIR[upper],dirL=XG_TRI_DIR[lower];
+  var triS=XG_TRIGRAM[sTri],wxS=XG_TRI_WX[sTri],dirS=XG_TRI_DIR[sTri],gS=XG_TRI_GNAME[sTri];
+  var indTxt=stk.ind||gS;
+  var html='';
+  html+='<div class="xg-card xg-card-name">';
+  html+='<div class="xg-l">天机所授 · 本卦</div>';
+  html+='<div class="xg-name">'+esc(hex.n)+'</div>';
+  html+='<div class="xg-wen">卦辞：'+esc(hex.w)+'</div>';
+  html+='<div class="xg-wen-m">'+esc(hex.m)+'</div>';
+  html+='<div class="xg-read">'+esc(hex.r)+'</div>';
+  html+='<div class="xg-wuxing">五行属'+esc(hex.wx)+' · '+esc(hex.sy)+'</div>';
+  html+='<div class="xg-gm">'+esc(lineTxt)+'</div>';
+  html+='</div>';
+  /* 契合原因：只讲五行生克、方位呼应、卦意与行业意象，不言数理 */
+  var SHENG={'木':'火','火':'土','土':'金','金':'水','水':'木'};
+  var KE={'木':'土','土':'水','水':'火','火':'金','金':'木'};
+  var rel;
+  if(wxS===wxU)rel='行业五行之'+wxS+'与上卦'+wxU+'同比和，同声相应、同气相求';
+  else if(SHENG[wxS]===wxU)rel='五行'+wxS+'生'+wxU+'，行业之气源源生扶上卦';
+  else if(SHENG[wxU]===wxS)rel='五行'+wxU+'生'+wxS+'，上卦之气滋养生发其业';
+  else if(KE[wxU]===wxS)rel='五行'+wxU+'克'+wxS+'，制而有节、张弛有度，恰似涨跌有度';
+  else rel='五行'+wxS+'克'+wxU+'，逆中有制、攻守相济，主逆境突围之象';
+  var dirPhrase=(sTri===upper)?('上卦与签池同属'+triU+'宫，上下同气、方位合一'):(triU+'居'+dirU+'而'+triS+'居'+dirS+'，两方之气遥相呼应');
+  var match='契合原因：本卦《'+esc(hex.n)+'》，上'+triU+'下'+triL+'。上卦'+triU+'五行属'+wxU+'、位居'+dirU+'，其象'+symU+'；下卦'+triL+'五行属'+wxL+'、位居'+dirL+'，其象'+symL+'。卦意'+esc(hex.sy)+'，卦体五行属'+esc(hex.wx)+'。天选之股《'+esc(stk.n)+'》以'+esc(indTxt)+'立身，归于八宫之'+triS+'宫（'+gS+'），五行属'+wxS+'、位居'+dirS+'。'+rel+'；'+dirPhrase+'。'+esc(hex.sy)+'之卦意，恰应其业之势，故天机垂象、引此一签。';
+  html+='<div class="xg-card"><div class="xg-l">卦股契合</div><div class="xg-match">'+match+'</div></div>';
+  /* 股票卡片：名称居左 · 价格涨幅居中 · 行业板块居右 单行排版 */
+  html+='<div class="xg-card"><div class="xg-l">天选之股（点击查看完整详情）</div>';
+  html+='<div class="xg-stk-card" data-m="'+stk.m+'" data-c="'+stk.c+'" id="xgStkCard">';
+  html+='<div class="xg-stk-info xg-stk-row"><span class="xg-stk-name">'+esc(stk.n)+'</span>';
+  html+='<span class="xg-stk-mid"><span class="xg-stk-price flat" id="xgStkPrice">--</span>';
+  html+='<span class="xg-stk-chg" id="xgStkChg"></span></span>';
+  html+='<span class="xg-stk-ind">'+esc(indTxt)+'</span>';
+  html+='</div><div class="xg-stk-arrow">›</div></div></div>';
+  /* 再摇一卦：纯按钮 */
+  html+='<div class="xg-act" style="margin:2px 18px 14px"><button class="xg-btn reset" id="btnXgAgain">再 摇 一 卦</button></div>';
+  html+='</div>';
+  $('#xgResult').innerHTML=html;
+  $('#xgTip').textContent='天机已显 · 可继续再摇';
+  /* 再摇 */
+  $('#btnXgAgain').addEventListener('click',resetXuangu);
+  /* 点股票卡进详情 */
+  $('#xgStkCard').addEventListener('click',function(){
+    openDetail(this.getAttribute('data-m'),this.getAttribute('data-c'),false,true);
+  });
+  /* 滚到结果 */
+  setTimeout(function(){$('#xgStkCard').scrollIntoView({behavior:'smooth',block:'center'})},50);
+}
+/* 拉行情（仅显示价/涨跌/行业） */
+function fetchXgQuote(stk){
+  var sym=(stk.m===1?'sh':'sz')+stk.c;
+  fetchQtText('https://qt.gtimg.cn/q='+sym).then(function(txt){
+    var p=parseQt(txt.split('~'));
+    if(!p||!p.price)return;
+    var price=p.price,chg=p.pct;
+    var cls=chg>0?'up':(chg<0?'dn':'flat');
+    var pe=$('#xgStkPrice'),ce=$('#xgStkChg');
+    if(pe){pe.textContent='¥'+fmt(price);pe.className='xg-stk-price '+cls}
+    if(ce){ce.textContent=fmtPct(chg);ce.className='xg-stk-chg '+cls}
+  }).catch(function(){});
+}
+/* 帮助弹窗 */
+$('#btnXgHelp').addEventListener('click',function(){
+  if(document.getElementById('xgHelp'))return;
+  var html='<div class="xg-help" id="xgHelp"><div class="xg-help-c">';
+  html+='<button class="close" id="xgHelpClose">×</button>';
+  html+='<h2>玄股 · 玩法</h2>';
+  html+='<p>融合中国传统六爻起卦仪式感的股票随机抽取互动。轻点龟壳六次，每次代表一爻，伴以铜铃清音；六爻毕后依卦解签，抽取一只沪深A股。</p>';
+  html+='<ol>';
+  html+='<li class="ol">每点一次龟壳即摇出一爻，依序弹出大写数字 壹 贰 叁 肆 伍 陆。</li>';
+  html+='<li class="ol">每爻随机出现 少阳 / 少阴 / 老阳 / 老阴 四种状态（概率均等）。</li>';
+  html+='<li class="ol">六爻既成自动解卦：显示本卦卦名、卦辞、详解、五行与象征，并附六爻记录。</li>';
+  html+='<li class="ol">八卦分主八方行业——乾主制造军工、兑主金融、离主科技、震主消费、巽主医药、坎主公用交运、艮主能源资源、坤主地产基建；以本卦上卦所主之宫定为签池。</li>';
+  html+='<li class="ol">股票覆盖沪深全部A股（主板、创业板、科创板），签池每日自动更新：退市剔除、新股纳入，卦象规则不变而签池常新。</li>';
+  html+='<li class="ol">点击股票卡片可进入完整详情页（与自选股点开效果一致）。</li>';
+  html+='<li class="ol">可无限次摇卦，每轮计数从壹重新开始。</li>';
+  html+='</ol>';
+  html+='</div></div>';
+  var wrap=document.createElement('div');
+  wrap.innerHTML=html;
+  document.querySelector('#page-xuangu .scroll').appendChild(wrap.firstChild);
+  document.getElementById('xgHelp').addEventListener('click',function(e){
+    if(e.target.id==='xgHelp'||e.target.id==='xgHelpClose'){
+      this.remove();
+    }
+  });
+});
 </script>
 </body>
 </html>
